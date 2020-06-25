@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                              <div class="col-7 justify-content-center align-self-center"  style="background: red;">
+                              <div class="col-7 justify-content-center align-self-center">
                                 <div class="form-group row">
                                     <label for="firstname" class="col-sm-3 col-form-label">Nombre:</label>
                                     <div class="col-sm-9">
@@ -86,13 +86,13 @@
                                     </div>
                                 </div>
                               </div>
-                              <div class="col-5" style="background: green;">
-                                <div class="float" style="background: blue;">
-                                    <div class="d-flex justify-content-center" style="background: yellow">
-                                        <img src="{{ asset('/storage/avatars/'.Auth::user()->avatar) }}" alt="" class="w-100 my-3 border" style="max-width:180px; min-width: 100px;">
+                              <div class="col-5">
+                                <div class="float">
+                                    <div class="d-flex justify-content-center" style="overflow:hidden;">
+                                        <img id="output" src="{{ asset('/storage/avatars/'.Auth::user()->avatar) }}" alt="" class="my-3 border" height="220px">
                                     </div>
                                     <div class="col">
-                                        <input type="file" id="profile_photo" name="profile_photo" class="filestyle color-1 d-none " data-text="Seleccionar foto de perfil" data-btnClass="btn-secondary text-white rounded-0" data-buttonBefore="true" data-size="sm" data-dragdrop="false">
+                                        <input type="file" id="profile_photo" name="profile_photo" class="filestyle color-1 d-none " data-text="Cambiar Foto" data-btnClass="btn-secondary text-white rounded-0" data-buttonBefore="true" data-size="sm" data-dragdrop="false" onchange="loadFunction(event)">
                                     </div>
                                 </div>
                               </div>
@@ -293,5 +293,11 @@
         var hash = window.location.hash;
         $(hash).click();
     });
+
+    function loadFunction(event) {
+      console.log(event);
+      var out = document.getElementById("output");
+      out.src = URL.createObjectURL(event.target.files[0]);
+    }
 </script>
 @endsection

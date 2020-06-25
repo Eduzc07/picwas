@@ -8,6 +8,7 @@ php artisan config:cache
 php artisan config:clear
 php artisan storage:link
 php artisan serve
+php artisan serve --host 0.0.0.0 --port 8000
 ```
 
 Usage of ngrok to open a tunnel
@@ -33,3 +34,8 @@ DNI: 46546465
  SECU: Rechazado por código de seguridad inválido.
  EXPI: Rechazado por problema con la fecha de expiración. FORM: Rechazado por error en formulario
  ```
+
+Rsync
+```
+rsync -avz --exclude '.git' /home/edu/Workspace/Server/GitHub_Picwas/ /home/edu/Workspace/Server/picwas.com
+```
