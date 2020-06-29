@@ -95,12 +95,12 @@ class AlbumController extends Controller
     {
         $album = Album::findOrFail($id);
         if (Gate::allows('album_owner', $album)) {
-            $photos = Photo::whereIn('id', AlbumPhoto::where('album_id', $id)->get('photo_id'))->orderBy('best', 'desc')->orderBy('created_at', 'desc')->paginate(12);
+            $photos = Photo::whereIn('id', AlbumPhoto::where('album_id', $id)->get('photo_id'))->orderBy('best', 'desc')->orderBy('created_at', 'desc')->paginate(20);
 
             return view('albums.show', compact(['album', 'photos']));
         } else {
             if ($album->publication_time >= date('Y-m-d')) {
-                $photos = Photo::whereIn('id', AlbumPhoto::where('album_id', $id)->get('photo_id'))->orderBy('best', 'desc')->orderBy('created_at', 'desc')->paginate(12);
+                $photos = Photo::whereIn('id', AlbumPhoto::where('album_id', $id)->get('photo_id'))->orderBy('best', 'desc')->orderBy('created_at', 'desc')->paginate(20);
 
                 return view('albums.show', compact(['album', 'photos']));
             } else {

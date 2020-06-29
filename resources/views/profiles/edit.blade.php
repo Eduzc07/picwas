@@ -38,17 +38,19 @@
 
                 <a class="icon-padlock text-right bg-color-1-active ml-auto p-2 color-2 side-pills-tab-icon text-decoration-none" id="securityAndPrivacy" data-toggle="pill" href="#v-pills-security-and-privacy" role="tab" aria-controls="v-pills-security-and-privacy" aria-selected="false" title="Seguridad y Privacidad"></a>
 
-                <a class="icon-lens text-right bg-color-1-active ml-auto p-2 color-2 side-pills-tab-icon text-decoration-none" id="profile" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" title="Perfil"></a>
+                <!-- <a class="icon-lens text-right bg-color-1-active ml-auto p-2 color-2 side-pills-tab-icon text-decoration-none" id="profile" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" title="Perfil"></a> -->
 
                 <a class="icon-cards text-right bg-color-1-active ml-auto p-2 color-2 side-pills-tab-icon text-decoration-none" id="finance" data-toggle="pill" href="#v-pills-finance" role="tab" aria-controls="v-pills-finance" aria-selected="false" title="Finanzas"></a>
             </div>
         </div>
+
         <div class="col-9">
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab">
                     <h5 class="border-bottom border-color-1 border-width-2 pb-1">Configuración general de la cuenta</h5>
                     <div class="bg-color-2 p-3 border">
-                        <form id="formGeneralSettings" method="POST" action="{{ route('user.update.general') }}" onsubmit="preventMultipleSubmitForm(this, '{{ asset('icons/blocks.svg')}}', 'left')">
+                        <form id="formGeneralSettings" method="POST" action="{{ route('user.update.general') }}" enctype="multipart/form-data" onsubmit="preventMultipleSubmitForm(this, '{{ asset('icons/blocks.svg')}}', 'left')">
+                        <!-- <form id="formProfileSettings" method="POST" action="{{ route('user.update.profile') }}" enctype="multipart/form-data" onsubmit="preventMultipleSubmitForm(this, '{{ asset('icons/blocks.svg')}}', 'left')"> -->
                             @method('PUT')
                             @csrf
                             <div class="row">
@@ -101,7 +103,7 @@
                             <div class="form-group row">
                                 <label for="description" class="col-sm-8 col-form-label">Descripción:</label>
                                 <div class="col-12">
-                                    <textarea class="form-control color-1" rows="8" resizable="false" style="resize: none;" name="description" id="description">@if ($errors->any() && old('description') !== null){{old('description')}}@else{{Auth::user()->description}}@endif</textarea>
+                                    <textarea class="form-control color-1" id="description" name="description" rows="8" resizable="false" style="resize: none;" >@if ($errors->any() && old('description') !== null){{old('description')}}@else{{Auth::user()->description}}@endif</textarea>
                                 </div>
                             </div>
 
@@ -113,6 +115,7 @@
                         </form>
                     </div>
                 </div>
+
                 <div class="tab-pane fade" id="v-pills-security-and-privacy" role="tabpanel" aria-labelledby="v-pills-security-and-privacy-tab">
                     <h5 class="border-bottom border-color-1 border-width-2 pb-1">Seguridad y Privacidad</h5>
                     <div class="bg-color-2 p-3 border">
@@ -157,7 +160,8 @@
                         </form>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+
+                <!-- <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                     <h5 class="border-bottom border-color-1 border-width-2 pb-1">Mi perfil</h5>
                     <div class="bg-color-2 p-3 border">
                         <form id="formProfileSettings" method="POST" action="{{ route('user.update.profile') }}" enctype="multipart/form-data" onsubmit="preventMultipleSubmitForm(this, '{{ asset('icons/blocks.svg')}}', 'left')">
@@ -193,7 +197,8 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> -->
+
                 <div class="tab-pane fade" id="v-pills-finance" role="tabpanel" aria-labelledby="v-pills-finance-tab">
                     <h5 class="border-bottom border-color-1 border-width-2 pb-1">Datos financieros</h5>
                     <div class="bg-color-2 p-3 border">
@@ -295,7 +300,6 @@
     });
 
     function loadFunction(event) {
-      console.log(event);
       var out = document.getElementById("output");
       out.src = URL.createObjectURL(event.target.files[0]);
     }

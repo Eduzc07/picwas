@@ -112,7 +112,7 @@ class ProfileController extends Controller
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)]
         ]);
 
         $user = User::findOrFail(Auth::user()->id);
@@ -121,7 +121,50 @@ class ProfileController extends Controller
         $user->username = strtolower($request->username);
         $user->email = strtolower($request->email);
 
+        // $user->save();
+
+        $validator = Validator::make($request->all(), [
+            'profile_photo' => ['image', 'mimes:jpeg,png,jpg', 'max:'.config('app.max_file_upload_size')],
+            'description' => ['nullable', 'string', 'max:255']
+        ]);
+
+        if ($validator->fails()) {
+          return redirect()->route('user.edit', [strtolower($request->username)])->withErrors($validator)->withInput();
+            // return redirect('/user/'.Auth::user()->username.'/edit/#profile')->withErrors($validator)->withInput();
+        }
+
+        // ----------------------------------------------------------
+        // if ($validator->fails()) {
+        //     return redirect('/user/'.Auth::user()->username.'/edit/#profile')->withErrors($validator)->withInput();
+        // }
+
+        // $user = User::findOrFail(Auth::user()->id);
+        $user->description = $request->description;
+
+        if ($request->hasFile('profile_photo') && $request->file('profile_photo')->isValid()) {
+            $profilePhotoName = Auth::user()->id.'_profile_photo_'.(time()*rand(1, 4)+rand(0, 50000)).'.'.request()->profile_photo->getClientOriginalExtension();
+
+            $defaultAvatarValue = $this->getDefaultColumnValue('avatar', $user);
+
+            // remove quotation marks returned by the getDefaultColumnValue function
+            $defaultAvatarValue = substr($defaultAvatarValue, 1);
+            $defaultAvatarValue = substr($defaultAvatarValue, 0, -1);
+
+            if ($user->avatar !== $defaultAvatarValue) {
+                if (Storage::exists('avatars/'.$user->avatar)) {
+                    Storage::delete('avatars/'.$user->avatar);
+                }
+            }
+
+            $user->avatar = $profilePhotoName;
+
+            $request->profile_photo->storeAs('avatars', $profilePhotoName);
+        }
+
         $user->save();
+
+        // return redirect('/user/'.Auth::user()->username.'/edit/#profile')->with('success', "¡Se han actualizado tus datos!");
+        // ----------------------------------------------------------
 
         return redirect()->route('user.edit', [strtolower($request->username)])->with('success', "¡Se han actualizado tus datos!");
     }
@@ -161,44 +204,44 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function updateProfile(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'profile_photo' => ['image', 'mimes:jpeg,png,jpg', 'max:'.config('app.max_file_upload_size')],
-            'description' => ['nullable', 'string', 'max:255']
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/user/'.Auth::user()->username.'/edit/#profile')->withErrors($validator)->withInput();
-        }
-
-        $user = User::findOrFail(Auth::user()->id);
-        $user->description = $request->description;
-
-        if ($request->hasFile('profile_photo') && $request->file('profile_photo')->isValid()) {
-            $profilePhotoName = Auth::user()->id.'_profile_photo_'.(time()*rand(1, 4)+rand(0, 50000)).'.'.request()->profile_photo->getClientOriginalExtension();
-
-            $defaultAvatarValue = $this->getDefaultColumnValue('avatar', $user);
-
-            // remove quotation marks returned by the getDefaultColumnValue function
-            $defaultAvatarValue = substr($defaultAvatarValue, 1);
-            $defaultAvatarValue = substr($defaultAvatarValue, 0, -1);
-
-            if ($user->avatar !== $defaultAvatarValue) {
-                if (Storage::exists('avatars/'.$user->avatar)) {
-                    Storage::delete('avatars/'.$user->avatar);
-                }
-            }
-
-            $user->avatar = $profilePhotoName;
-
-            $request->profile_photo->storeAs('avatars', $profilePhotoName);
-        }
-
-        $user->save();
-
-        return redirect('/user/'.Auth::user()->username.'/edit/#profile')->with('success', "¡Se han actualizado tus datos!");
-    }
+    // public function updateProfile(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'profile_photo' => ['image', 'mimes:jpeg,png,jpg', 'max:'.config('app.max_file_upload_size')],
+    //         'description' => ['nullable', 'string', 'max:255']
+    //     ]);
+    //
+    //     if ($validator->fails()) {
+    //         return redirect('/user/'.Auth::user()->username.'/edit/#profile')->withErrors($validator)->withInput();
+    //     }
+    //
+    //     $user = User::findOrFail(Auth::user()->id);
+    //     $user->description = $request->description;
+    //
+    //     if ($request->hasFile('profile_photo') && $request->file('profile_photo')->isValid()) {
+    //         $profilePhotoName = Auth::user()->id.'_profile_photo_'.(time()*rand(1, 4)+rand(0, 50000)).'.'.request()->profile_photo->getClientOriginalExtension();
+    //
+    //         $defaultAvatarValue = $this->getDefaultColumnValue('avatar', $user);
+    //
+    //         // remove quotation marks returned by the getDefaultColumnValue function
+    //         $defaultAvatarValue = substr($defaultAvatarValue, 1);
+    //         $defaultAvatarValue = substr($defaultAvatarValue, 0, -1);
+    //
+    //         if ($user->avatar !== $defaultAvatarValue) {
+    //             if (Storage::exists('avatars/'.$user->avatar)) {
+    //                 Storage::delete('avatars/'.$user->avatar);
+    //             }
+    //         }
+    //
+    //         $user->avatar = $profilePhotoName;
+    //
+    //         $request->profile_photo->storeAs('avatars', $profilePhotoName);
+    //     }
+    //
+    //     $user->save();
+    //
+    //     return redirect('/user/'.Auth::user()->username.'/edit/#profile')->with('success', "¡Se han actualizado tus datos!");
+    // }
 
     /**
      * Update the specified resource in storage.

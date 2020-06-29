@@ -14,21 +14,6 @@
 <div class="container text-white h-100">
     <div class="row align-items-center" style="height: 80vh;">
         <div class="col-12 text-center">
-            <div class="col-6 mx-auto">
-                @if ($errors->any())
-                    <div class="alert alert-danger alert-dismissible fade show text-left position-fixed" role="alert" style="top: 8px; right: 8px;">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <strong></strong>
-                    </div>
-                @endif
-            </div>
             <div class="col-12">
                 <h1 class="justify-content-center bg-style-1 rounded pr-5 pl-5 pt-1 pb-1 d-inline-flex w-100" style="max-width: 28rem;">Soy Fotógrafo</h1>
             </div>
@@ -56,7 +41,21 @@
                         @endif
                     </form>
 
-                    <a href="{{ route('register') }}" class="btn btn-link text-white"><h3>Crea una cuenta gratis</h3></a>
+                    <a href="{{ route('register') }}" class="btn btn-link text-white"><h3>Crea una cuenta gratissss</h3></a>
+                </div>
+                <div class="col-6 mx-auto" style="background: red;">
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show text-left position-fixed" role="alert" style="top: 8px; right: 8px; padding: 10px 40px 0px 10px;">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

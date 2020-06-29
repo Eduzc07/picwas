@@ -6,25 +6,27 @@
 
 @include("layouts.navbar")
 
-<div class="container-fluid mt-3 px-md-5">
+<div class="container-fluid pt-2 px-md-5" style="background: #fafafa;">
     <div class="row">
-        <div class="col-12 col-md-12">
-            <div class="mx-auto mx-md-4 mx-xl-5 profile-photo-border rounded-circle bg-white">
-                <div class="mx-md-0 mx-auto border profile-photo-img rounded-circle" style="background-image: url({{ asset('/storage/avatars/'.$user->avatar) }});">
-                    @can('is_photographer', $user)
-                        <div class="rounded-circle profile-photo-inside-container">
-                            <img src="{{ asset('icons/icon_escudo_fotografos_2.png') }}" alt="" class="rounded-circle p-0 border-0 img-thumbnail">
-                        </div>
-                    @endcan
+        <div class="col-12 col-md-4 col-lg-3 text-center">
+            <div class="col-12 col-md-12">
+                <div class="mx-auto profile-photo-border rounded-circle bg-white">
+                    <div class="mx-md-0 mx-auto border profile-photo-img rounded-circle" style="background-image: url({{ asset('/storage/avatars/'.$user->avatar) }});">
+                        @can('is_photographer', $user)
+                            <div class="rounded-circle profile-photo-inside-container">
+                                <img src="{{ asset('icons/icon_escudo_fotografos_2.png') }}" alt="" class="rounded-circle p-0 border-0 img-thumbnail">
+                            </div>
+                        @endcan
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="w-100"></div>
 
-        <div class="col-12 col-md-4 col-lg-3 text-center">
+            <div class="w-100"></div>
+
             <div class="row mx-auto mx-lg-0" style="max-width: 300px">
                 <div class="col-12 pl-lg-0">
-                    <p><h2>{{ $user->first_name . " " . $user->last_name}}</h2></p>
+                    <p><h2>{{ $user->first_name}}<br>
+                    {{ $user->last_name}}</h2></p>
                     <p><h5 class="text-break">{{ "@".$user->username }}</h5></p>
                     <p></span><h6><span class="flag-icon flag-icon-{{strtolower(App\Country::find($user->country_id)->alpha_2_code)}} rounded"></span> {{App\Country::find($user->country_id)->name}}</h6></p>
                     <hr>
@@ -112,7 +114,7 @@
                                     </div>
                                     @if($album->publication_time <= date('Y-m-d'))
                                         @can('album_owner', $album)
-                                            <div class="card-footer">
+                                            <div class="card-footer text-center">
                                                 <p class="text-danger my-auto">No disponible desde {{date('d-m-Y', strtotime($album->publication_time))}}</p>
                                             </div>
                                         @endcan

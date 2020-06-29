@@ -17,6 +17,7 @@
                 </div>
             </div>
         </div>
+
         <div class="w-100"></div>
 
         <div class="col-12 col-md-4 col-lg-3 text-center">
@@ -34,7 +35,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-12 col-md-8 col-lg-9 py-3 px-1">
             <div class="container-fluid">
                 <div class="row">
@@ -113,8 +114,8 @@
                         </a>
                     </div>
                 </div>
-        
-        
+
+
                 <div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg modal-dialog-centered">
                         <div class="modal-content">
@@ -129,7 +130,7 @@
                             <div class="modal-footer d-block">
                                 <button type="button" class="btn btn-secondary float-left" id="show-previous-image"><i class="fa fa-arrow-left"></i>
                                 </button>
-        
+
                                 <button type="button" id="show-next-image" class="btn btn-secondary float-right"><i class="fa fa-arrow-right"></i>
                                 </button>
                             </div>

@@ -55,7 +55,7 @@
 
                         <select name="country" class="form-control p-2 mb-2 mx-auto" style="max-width: 24rem; font-size: 1.2rem;">
                             <option disabled selected>País</option>
-                            <option value="AF" {{ old('country') == "AF"?'selected':''}}>Afganistán</option>
+                            <!-- <option value="AF" {{ old('country') == "AF"?'selected':''}}>Afganistán</option>
                             <option value="AL" {{ old('country') == "AL"?'selected':''}}>Albania</option>
                             <option value="DE" {{ old('country') == "DE"?'selected':''}}>Alemania</option>
                             <option value="AD" {{ old('country') == "AD"?'selected':''}}>Andorra</option>
@@ -65,9 +65,9 @@
                             <option value="AG" {{ old('country') == "AG"?'selected':''}}>Antigua y Barbuda</option>
                             <option value="AN" {{ old('country') == "AN"?'selected':''}}>Antillas holandesas</option>
                             <option value="SA" {{ old('country') == "SA"?'selected':''}}>Arabia Saudí</option>
-                            <option value="DZ" {{ old('country') == "DZ"?'selected':''}}>Argelia</option>
+                            <option value="DZ" {{ old('country') == "DZ"?'selected':''}}>Argelia</option> -->
                             <option value="AR" {{ old('country') == "AR"?'selected':''}}>Argentina</option>
-                            <option value="AM" {{ old('country') == "AM"?'selected':''}}>Armenia</option>
+                            <!-- <option value="AM" {{ old('country') == "AM"?'selected':''}}>Armenia</option>
                             <option value="AW" {{ old('country') == "AW"?'selected':''}}>Aruba</option>
                             <option value="AU" {{ old('country') == "AU"?'selected':''}}>Australia</option>
                             <option value="AT" {{ old('country') == "AT"?'selected':''}}>Austria</option>
@@ -85,9 +85,9 @@
                             <option value="MM" {{ old('country') == "MM"?'selected':''}}>Birmania</option>
                             <option value="BO" {{ old('country') == "BO"?'selected':''}}>Bolivia</option>
                             <option value="BA" {{ old('country') == "BA"?'selected':''}}>Bosnia y Herzegovina</option>
-                            <option value="BW" {{ old('country') == "BW"?'selected':''}}>Botsuana</option>
+                            <option value="BW" {{ old('country') == "BW"?'selected':''}}>Botsuana</option> -->
                             <option value="BR" {{ old('country') == "BR"?'selected':''}}>Brasil</option>
-                            <option value="BN" {{ old('country') == "BN"?'selected':''}}>Brunei</option>
+                            <!-- <option value="BN" {{ old('country') == "BN"?'selected':''}}>Brunei</option>
                             <option value="BG" {{ old('country') == "BG"?'selected':''}}>Bulgaria</option>
                             <option value="BF" {{ old('country') == "BF"?'selected':''}}>Burkina Faso</option>
                             <option value="BI" {{ old('country') == "BI"?'selected':''}}>Burundi</option>
@@ -95,13 +95,13 @@
                             <option value="KH" {{ old('country') == "KH"?'selected':''}}>Camboya</option>
                             <option value="CM" {{ old('country') == "CM"?'selected':''}}>Camerún</option>
                             <option value="CA" {{ old('country') == "CA"?'selected':''}}>Canadá</option>
-                            <option value="TD" {{ old('country') == "TD"?'selected':''}}>Chad</option>
+                            <option value="TD" {{ old('country') == "TD"?'selected':''}}>Chad</option> -->
                             <option value="CL" {{ old('country') == "CL"?'selected':''}}>Chile</option>
-                            <option value="CN" {{ old('country') == "CN"?'selected':''}}>China</option>
+                            <!-- <option value="CN" {{ old('country') == "CN"?'selected':''}}>China</option>
                             <option value="CY" {{ old('country') == "CY"?'selected':''}}>Chipre</option>
-                            <option value="VA" {{ old('country') == "VA"?'selected':''}}>Ciudad estado del Vaticano</option>
+                            <option value="VA" {{ old('country') == "VA"?'selected':''}}>Ciudad estado del Vaticano</option> -->
                             <option value="CO" {{ old('country') == "CO"?'selected':''}}>Colombia</option>
-                            <option value="KM" {{ old('country') == "KM"?'selected':''}}>Comores</option>
+                            <!-- <option value="KM" {{ old('country') == "KM"?'selected':''}}>Comores</option>
                             <option value="CG" {{ old('country') == "CG"?'selected':''}}>Congo</option>
                             <option value="KR" {{ old('country') == "KR"?'selected':''}}>Corea</option>
                             <option value="KP" {{ old('country') == "KP"?'selected':''}}>Corea del Norte</option>
@@ -111,9 +111,9 @@
                             <option value="CU" {{ old('country') == "CU"?'selected':''}}>Cuba</option>
                             <option value="DK" {{ old('country') == "DK"?'selected':''}}>Dinamarca</option>
                             <option value="DJ" {{ old('country') == "DJ"?'selected':''}}>Djibouri</option>
-                            <option value="DM" {{ old('country') == "DM"?'selected':''}}>Dominica</option>
+                            <option value="DM" {{ old('country') == "DM"?'selected':''}}>Dominica</option> -->
                             <option value="EC" {{ old('country') == "EC"?'selected':''}}>Ecuador</option>
-                            <option value="EG" {{ old('country') == "EG"?'selected':''}}>Egipto</option>
+                            <!-- <option value="EG" {{ old('country') == "EG"?'selected':''}}>Egipto</option>
                             <option value="SV" {{ old('country') == "SV"?'selected':''}}>El Salvador</option>
                             <option value="AE" {{ old('country') == "AE"?'selected':''}}>Emiratos Arabes Unidos</option>
                             <option value="ER" {{ old('country') == "ER"?'selected':''}}>Eritrea</option>
@@ -226,9 +226,9 @@
                             <option value="PA" {{ old('country') == "PA"?'selected':''}}>Panamá</option>
                             <option value="PG" {{ old('country') == "PG"?'selected':''}}>Papua Nueva Guinea</option>
                             <option value="PK" {{ old('country') == "PK"?'selected':''}}>Paquistán</option>
-                            <option value="PY" {{ old('country') == "PY"?'selected':''}}>Paraguay</option>
+                            <option value="PY" {{ old('country') == "PY"?'selected':''}}>Paraguay</option> -->
                             <option value="PE" {{ old('country') == "PE"?'selected':''}} selected >Perú</option>
-                            <option value="PN" {{ old('country') == "PN"?'selected':''}}>Pitcairn</option>
+                            <!-- <option value="PN" {{ old('country') == "PN"?'selected':''}}>Pitcairn</option>
                             <option value="PF" {{ old('country') == "PF"?'selected':''}}>Polinesia francesa</option>
                             <option value="PL" {{ old('country') == "PL"?'selected':''}}>Polonia</option>
                             <option value="PT" {{ old('country') == "PT"?'selected':''}}>Portugal</option>
@@ -291,7 +291,7 @@
                             <option value="WF" {{ old('country') == "WF"?'selected':''}}>Wallis y Futuna</option>
                             <option value="YE" {{ old('country') == "YE"?'selected':''}}>Yemen</option>
                             <option value="ZM" {{ old('country') == "ZM"?'selected':''}}>Zambia</option>
-                            <option value="ZW" {{ old('country') == "ZW"?'selected':''}}>Zimbabue</option>
+                            <option value="ZW" {{ old('country') == "ZW"?'selected':''}}>Zimbabue</option> -->
                         </select>
 
                         <input type="email" class="form-control p-3 mb-2 mx-auto" name="email" placeholder="e-mail" style="max-width: 24rem; font-size: 1.2rem;" value="{{ old('email') }}">

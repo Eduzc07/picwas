@@ -8,21 +8,24 @@
 
 <div class="container-fluid mt-3 px-md-5">
     <div class="row">
-        <div class="col-12 col-md-12">
-            <div class="mx-auto mx-md-4 mx-xl-5 profile-photo-border rounded-circle bg-white">
-                <div class="mx-md-0 mx-auto border profile-photo-img rounded-circle" style="background-image: url({{ asset('/storage/avatars/'.Auth::user()->avatar) }});">
-                    <div class="rounded-circle profile-photo-inside-container">
-                        <img src="{{ asset('icons/icon_escudo_fotografos_2.png') }}" alt="" class="rounded-circle p-0 border-0 img-thumbnail">
+        <div class="col-12 col-md-4 col-lg-3 text-center">
+            <div class="col-12 col-md-12">
+                <div class="mx-auto mx-md-4 mx-xl-5 profile-photo-border rounded-circle bg-white">
+                    <div class="mx-md-0 mx-auto border profile-photo-img rounded-circle" style="background-image: url({{ asset('/storage/avatars/'.Auth::user()->avatar) }});">
+                        <div class="rounded-circle profile-photo-inside-container">
+                            <img src="{{ asset('icons/icon_escudo_fotografos_2.png') }}" alt="" class="rounded-circle p-0 border-0 img-thumbnail">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="w-100"></div>
-
-        <div class="col-12 col-md-4 col-lg-3 text-center">
+            <div class="w-100"></div>
             <div class="row mx-auto mx-lg-0" style="max-width: 300px">
                 <div class="col-12 pl-lg-0">
-                    <p><h2>{{ Auth::user()->first_name . " " . Auth::user()->last_name}}</h2></p>
+                    <p>
+                      <h2>{{ Auth::user()->first_name}} <br>
+                          {{ Auth::user()->last_name}}
+                      </h2>
+                    </p>
                     <p><h5 class="text-break">{{ "@".Auth::user()->username }}</h5></p>
                     <p><h6><span class="flag-icon flag-icon-{{strtolower(App\Country::find(Auth::user()->country_id)->alpha_2_code)}} rounded"></span> {{App\Country::find(Auth::user()->country_id)->name}}</h6></p>
                     <hr>
@@ -74,11 +77,11 @@
 
                     <div class="form-group row">
                         <div class="col-12">
-                            <img src="{{ asset('/storage/albums/'.$album->cover_photo) }}" alt="" class="img-fluid my-3" style="max-width:180px; min-width: 100px;">
+                            <img id="output" src="{{ asset('/storage/albums/'.$album->cover_photo) }}" alt="" class="img-fluid my-3" style="max-width:180px; min-width: 100px;">
                         </div>
                         <label for="album_cover" class="col-sm-4 col-form-label">Portada de álbum</label>
                         <div class="col-sm-8">
-                            <input type="file" id="album_cover" name="album_cover" class="filestyle color-1" data-text="Seleccionar portada" data-btnClass="btn-secondary text-white rounded-0" data-buttonBefore="true" data-size="sm" data-dragdrop="false">
+                            <input type="file" id="album_cover" name="album_cover" class="filestyle color-1" data-text="Seleccionar portada" data-btnClass="btn-secondary text-white rounded-0" data-buttonBefore="true" data-size="sm" data-dragdrop="false" onchange="loadFunction(event)">
                         </div>
                     </div>
 
@@ -124,4 +127,15 @@
 @section('loadScripts')
     <script src="{{ asset('js/scripts.js') }}"></script>
     <script src="{{ asset('js/bootstrap-filestyle.min.js') }}"></script>
+    <script>
+        $(function () {
+            var hash = window.location.hash;
+            $(hash).click();
+        });
+
+        function loadFunction(event) {
+          var out = document.getElementById("output");
+          out.src = URL.createObjectURL(event.target.files[0]);
+        }
+    </script>
 @endsection

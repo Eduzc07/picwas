@@ -30,12 +30,12 @@
                 </div>
 
                 <div class="col-12 pl-lg-0">
-                    <button type="submit" class="btn button-style-2 text-white font-weight-bold px-3" style="font-size: 1.2rem;">Mis mejores fotos</button>
+                    <button type="submit" class="btn button-style-2 text-white font-weight-bold px-3" style="font-size: 1.2rem;">Mis mejores fotosaaa</button>
                     <hr>
                 </div>
             </div>
         </div>
-        
+
         <div class="col-12 col-md-8 col-lg-9 py-3 px-1">
             <div class="container">
                 <div class="row mb-3">

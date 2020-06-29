@@ -7,11 +7,11 @@
 @include("layouts.navbar")
 
 <div class="container-fluid mt-3 px-md-5">
-    <div class="row mt-5">
+    <div class="row">
         <div class="col-12 py-3 mt-5">
             <div class="container">
                 <div class="row">
-                    <div class="col-12 p-4">
+                    <div class="col-12">
                         <h1 class="color-1">Carrito</h1>
                         <hr>
                         @if ($errors->any())
@@ -30,7 +30,7 @@
 
                         @if (session()->get('success'))
                             <div class="alert alert-success alert-dismissible fade show text-left my-3" role="alert">
-                                <h4>{{ session()->get('success') }}</h4>
+                                <h6>{{ session()->get('success') }}</h6>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

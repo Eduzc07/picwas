@@ -299,7 +299,7 @@
                         <input type="password" class="form-control p-3 mb-2 mx-auto" name="password" placeholder="Contraseña" style="max-width: 24rem; font-size: 1.2rem;">
 
                         <input id="password-confirm" type="password" placeholder="Vuelve a escribir la contraseña" class="form-control p-3 mb-2 mx-auto" name="password_confirmation" required autocomplete="new-password" style="max-width: 24rem; font-size: 1.2rem;">
-                        
+
                         <div class="checkbox mx-auto"  style="max-width: 24rem;">
                             <label class="text-left text-secondary">
                                 <div class="checkbox-circle">
@@ -311,7 +311,7 @@
                         </div>
 
                         <div class="w-100"></div>
-                        
+
                         <button type="submit" class="btn button-style-2 text-white font-weight-bold pl-5 pr-5" style="font-size: 1.2rem;">Registrarme</button>
                     </form>
                 </div>

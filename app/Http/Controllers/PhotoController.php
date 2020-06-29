@@ -50,6 +50,8 @@ class PhotoController extends Controller
         $request->validate([
             'add_photos' => ['required', 'max:'.config('app.max_multiple_file')],
             'add_photos.*' => ['image', 'mimes:jpeg,png,jpg', 'max:'.config('app.max_file_upload_size')]
+            // 'add_photos' => ['required'],
+            // 'add_photos.*' => ['image', 'mimes:jpeg,png,jpg']
         ]);
 
         if($request->hasfile('add_photos')) {
@@ -79,10 +81,18 @@ class PhotoController extends Controller
 
                 // Calculate resize value
                 $originalWidth = $image->width();
+                $originalHeight = $image->height();
 
-                if ($originalWidth > 1280) {
+                if ($originalWidth > 320) {
                     // resize the image to a width of 1280 and constrain aspect ratio (auto height)
-                    $image->resize(1280, null, function ($constraint) {
+                    $image->resize(320, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
+                }
+
+                if ($originalHeight > 240) {
+                    // resize the image to a width of 1280 and constrain aspect ratio (auto height)
+                    $image->resize(null, 240, function ($constraint) {
                         $constraint->aspectRatio();
                     });
                 }

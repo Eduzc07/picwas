@@ -118,3 +118,50 @@
 	content:"\f109";
 }
 
+.inline-group {
+	width: 100%;
+	height: 38px;
+  /* padding: .5rem; */
+	/* background: red; */
+}
+
+#input-price {
+	/* font-size: 1.2rem; */
+	text-align: right;
+}
+
+/* .inline-group .form-control {
+  text-align: right;
+} */
+
+/* .form-control[type="number"]::-webkit-inner-spin-button,
+.form-control[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+	background: red;
+} */
+
+.prefix-val {
+	font-weight: 1500;
+	background: #ddd;
+	font-size: 20px;
+	align-items: center;
+	height: 100%;
+	border: 1px solid #ccc;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input[type=email], input[type=password] {
+  background: #ffffffaa;
+}

@@ -8,18 +8,19 @@
 
 <div class="container-fluid mt-3 px-md-5">
     <div class="row">
-        <div class="col-12 col-md-12">
-            <div class="mx-auto mx-md-4 mx-xl-5 profile-photo-border rounded-circle bg-white">
-                <div class="mx-md-0 mx-auto border profile-photo-img rounded-circle" style="background-image: url({{ asset('/storage/avatars/'.Auth::user()->avatar) }});">
-                    <div class="rounded-circle profile-photo-inside-container">
-                        <img src="{{ asset('icons/icon_escudo_fotografos_2.png') }}" alt="" class="rounded-circle p-0 border-0 img-thumbnail">
+        <div class="col-12 col-md-4 col-lg-3 text-center">
+            <div class="col-12 col-md-12">
+                <div class="mx-auto mx-md-4 mx-xl-5 profile-photo-border rounded-circle bg-white">
+                    <div class="mx-md-0 mx-auto border profile-photo-img rounded-circle" style="background-image: url({{ asset('/storage/avatars/'.Auth::user()->avatar) }});">
+                        <div class="rounded-circle profile-photo-inside-container">
+                            <img src="{{ asset('icons/icon_escudo_fotografos_2.png') }}" alt="" class="rounded-circle p-0 border-0 img-thumbnail">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="w-100"></div>
 
-        <div class="col-12 col-md-4 col-lg-3 text-center">
+            <div class="w-100"></div>
+
             <div class="row mx-auto mx-lg-0" style="max-width: 300px">
                 <div class="col-12 pl-lg-0">
                     <p><h2>{{ Auth::user()->first_name . " " . Auth::user()->last_name}}</h2></p>
