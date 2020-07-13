@@ -6,12 +6,12 @@
 
 @include("layouts.navbar")
 
-<div class="container-fluid pt-2 px-md-5">
+<div class="container-fluid pt-3 px-md-5">
     <div class="row">
         <div class="col-12 text-center">
             <h1 class="color-1">
                 @if($searchFor)
-                    Resultados de <br>
+                    Resultados de:
                     <small class="text-success">"{{$searchFor}}" @if($topic != "all")
                         en {{strtolower($topic)}}
                     @endif
@@ -25,16 +25,17 @@
             </h1>
         </div>
     </div>
+
     <div class="row">
         <div class="col-12 mx-auto">
             <form id="formSearchAlbum" action="{{route('search')}}" method="POST" class="text-center" onsubmit="preventMultipleSubmitForm(this, '{{ asset('icons/blocks.svg')}}')">
                 @csrf
                 <input type="hidden" name="search" value="{{$searchFor}}">
 
-                <div class="row">
+                <div class="row h-100">
                     <div class="col-sm-4 my-auto">
                         <div class="form-group row my-auto">
-                            <label for="topic" class="col-sm-4 col-form-label py-0">Tema</label>
+                            <h4 for="topic" class="col-sm-4 py-0">Tema</h4>
                             <div class="col-sm-8 m-0 pl-0 my-auto">
                                 <select name="topic" id="topic" class="form-control form-control-sm color-1 bg-color-2">
                                     <option value="all" {{ $topic == "all"?'selected':''}}>Todos los temas</option>
@@ -49,7 +50,7 @@
 
                     <div class="col-sm-4 my-auto">
                         <div class="form-group row my-auto">
-                            <label for="country" class="col-sm-4 col-form-label py-0">País</label>
+                            <h4 for="country" class="col-sm-4 py-0">País</h4>
                             <div class="col-sm-8 m-0 pl-0 my-auto">
                               <select name="country" id="country" class="form-control form-control-sm color-1 bg-color-2">
                                   <option disabled selected>País</option>
@@ -299,16 +300,16 @@
                         <button type="submit" class="btn button-style-2 text-white font-weight-bold px-5 mx-3" style="font-size: 1.2rem;">Buscar</button>
                     </div>
                 </div>
-
-
             </form>
         </div>
     </div>
-    <hr>
+
+    <hr class="bg-color-1" style="height: 1px">
+
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
         @forelse($albums as $album)
             <div class="col-12 col-sm-6 col-md-4 mb-3">
-                <div class="card h-100 border-0">
+                <div class="card h-100 border-0" style="background: #ffffff66";>
                     <a href="{{ route('albums.show', [$album->id]) }}" title="Ver álbum">
                         <img src="{{asset('/storage/albums/'.$album->cover_photo)}}" class="card-img-top card-header p-0" style="height: 200px; object-fit: cover">
                     </a>

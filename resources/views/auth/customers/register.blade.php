@@ -18,10 +18,10 @@
 
     <div class="row align-items-center" style="height: 100vh;">
         <div class="col-12 text-center bg-white">
-            <div class="col-12">
+            <!-- <div class="col-12">
                 <h1 class="justify-content-center pr-5 pl-5 pt-1 pb-1 d-inline-flex w-100" style="max-width: 28rem;">&nbsp</h1>
-            </div>
-            <div class="row">
+            </div> -->
+            <div id="background-register" class="row pt-4">
                 <div class="col-6 mx-auto">
                     @if ($errors->any())
                         <div class="alert alert-danger alert-dismissible fade show text-left" role="alert">
@@ -305,7 +305,7 @@
                                 <div class="checkbox-circle">
                                     <input id="age-verification" type="checkbox" name="age_verification">
                                     <label for="age-verification"></label>
-                                    Certifico que tengo 18 o más años de edad, y acepto las Condiciones del servicio y la Política de privacidad.
+                                    Certifico que soy mayor de edad y acepto las <a href="{{route('customers.terms')}}">Condiciones del servicio y la Política de privacidad</a>.
                                 </div>
                             </label>
                         </div>

@@ -9,30 +9,33 @@
 <div class="container">
     <div class="row mt-4">
         <div class="col-12 mx-auto">
-            @if ($errors->any())
-                <div class="alert alert-danger alert-dismissible fade show text-left" role="alert">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <strong></strong>
-                </div>
-            @endif
+            <div class="col-6 mx-auto">
+              @if ($errors->any())
+                  <div class="alert alert-danger alert-dismissible fade show text-left" role="alert">
+                      <ul>
+                          @foreach ($errors->all() as $error)
+                              <li>{{ $error }}</li>
+                          @endforeach
+                      </ul>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                      <strong></strong>
+                  </div>
+              @endif
 
-            @if (session()->get('success'))
-                <div class="alert alert-success alert-dismissible fade show text-left" role="alert">
-                    <h4>{{ session()->get('success') }}</h4>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif
+              @if (session()->get('success'))
+                  <div class="alert alert-success alert-dismissible fade show text-left" role="alert">
+                      <h6>{{ session()->get('success') }}</h6>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+              @endif
+            </div>
         </div>
-        <div class="col-3">
+
+        <div class="col-3 pr-0 pt-3">
             <div class="nav flex-column nav-pills pt-4" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="icon-gear text-right bg-color-1-active ml-auto p-2 color-2 side-pills-tab-icon text-decoration-none active" id="general" data-toggle="pill" href="#v-pills-general" role="tab" aria-controls="v-pills-general" aria-selected="true" title="Configuración general"></a>
 
@@ -44,7 +47,7 @@
             </div>
         </div>
 
-        <div class="col-9">
+        <div class="col-9 pl-0">
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab">
                     <h5 class="border-bottom border-color-1 border-width-2 pb-1">Configuración general de la cuenta</h5>

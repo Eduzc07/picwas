@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\Album;
+use App\Photo;
 use App\AlbumPhoto;
 use App\CartDetail;
 use MercadoPago\SDK;
@@ -18,7 +19,6 @@ use stdClass;
 
 class CartController extends Controller
 {
-
     /*
     Necesario ingresar con ngrok activo, de lo contrario presenta errores con todas las urls, por ejemplo back_urls y notification_url, ya que no acepta url locales
     */
@@ -36,7 +36,8 @@ class CartController extends Controller
                 $photo = DB::table('photos')->where('id', $detail->photo_id)->first();
 
                 if (empty($album) || empty($photo) || $album->publication_time < date('Y-m-d')) {
-                    $cart->total -= config('app.price_per_photo');
+                    // $cart->total -= config('app.price_per_photo');
+                    $cart->total -= $detail->amount;
                     $cart->items -= 1;
                     $cart->save();
 
@@ -65,9 +66,10 @@ class CartController extends Controller
                 $item->title = config('app.name')." - Fotos";
                 $item->description = "Colección de fotos buscadas en ".config('app.name');
                 $item->category_id = "virtual_goods";
-                $item->quantity = $cart->items;
+                $item->quantity = 1; //$cart->items
                 $item->currency_id = config('app.currency');
-                $item->unit_price = config('app.price_per_photo');
+                // $item->unit_price = config('app.price_per_photo');
+                $item->unit_price = $cart->total;
 
                 # Create a payer object
                 $payer = new Payer();
@@ -136,19 +138,23 @@ class CartController extends Controller
         $cart = Cart::class;
         $cartDetail = CartDetail::class;
 
-        if (Cart::where('user_id', Auth::user()->id)->first() === null)
-        {
+        if (Cart::where('user_id', Auth::user()->id)->first() === null) {
+            //Get Photo Object in order to get price
+            $photo = Photo::findOrFail($request->reference);
+
             $cart = new Cart;
             $cart->user_id = Auth::user()->id;
             $cart->items = 1;
-            $cart->total = config('app.price_per_photo');
+            // $cart->total = config('app.price_per_photo');
+            $cart->total = $photo->price;
             $cart->save();
 
             $cartDetail = new CartDetail;
             $cartDetail->cart_id = $cart->id;
             $cartDetail->album_id = $request->album;
             $cartDetail->photo_id = $request->reference;
-            $cartDetail->amount = config('app.price_per_photo');
+            // $cartDetail->amount = config('app.price_per_photo');
+            $cartDetail->amount = $photo->price;
             $cartDetail->save();
         } else {
             $cart = Cart::where('user_id', Auth::user()->id)->first();
@@ -156,15 +162,19 @@ class CartController extends Controller
             if (CartDetail::where([['cart_id', $cart->id], ['album_id', $request->album], ['photo_id', $request->reference]])->first()) {
                 return json_encode(['status' => 1]);
             } else {
+                //Get Photo Object in order to get price
+                $photo = Photo::findOrFail($request->reference);
 
                 $cartDetail = new CartDetail;
                 $cartDetail->cart_id = $cart->id;
                 $cartDetail->album_id = $request->album;
                 $cartDetail->photo_id = $request->reference;
-                $cartDetail->amount = config('app.price_per_photo');
+                // $cartDetail->amount = config('app.price_per_photo');
+                $cartDetail->amount = $photo->price;
                 $cartDetail->save();
 
-                $cart->total += config('app.price_per_photo');
+                // $cart->total += config('app.price_per_photo');
+                $cart->total += $photo->price;
                 $cart->items++;
                 $cart->save();
             }
@@ -188,19 +198,24 @@ class CartController extends Controller
         $cart = Cart::class;
         $cartDetail = CartDetail::class;
 
-        if (Cart::where('user_id', Auth::user()->id)->first() === null)
-        {
+        if (Cart::where('user_id', Auth::user()->id)->first() === null){
+
+            //Get Photo Object in order to get price
+            $photo = Photo::findOrFail($request->reference);
+
             $cart = new Cart;
             $cart->user_id = Auth::user()->id;
             $cart->items = 1;
-            $cart->total = config('app.price_per_photo');
+            // $cart->total = config('app.price_per_photo');
+            $cart->total = $photo->price;
             $cart->save();
 
             $cartDetail = new CartDetail;
             $cartDetail->cart_id = $cart->id;
             $cartDetail->album_id = $request->album;
             $cartDetail->photo_id = $request->reference;
-            $cartDetail->amount = config('app.price_per_photo');
+            // $cartDetail->amount = config('app.price_per_photo');
+            $cartDetail->amount = $photo->price;
             $cartDetail->save();
         } else {
             $cart = Cart::where('user_id', Auth::user()->id)->first();
@@ -208,21 +223,26 @@ class CartController extends Controller
             if (CartDetail::where([['cart_id', $cart->id], ['album_id', $request->album], ['photo_id', $request->reference]])->first()) {
                 return redirect()->back()->with('success', "¡Foto en el carrito!");
             } else {
+                //Get Photo Object in order to get price
+                $photo = Photo::findOrFail($request->reference);
 
                 $cartDetail = new CartDetail;
                 $cartDetail->cart_id = $cart->id;
                 $cartDetail->album_id = $request->album;
                 $cartDetail->photo_id = $request->reference;
-                $cartDetail->amount = config('app.price_per_photo');
+                // $cartDetail->amount = config('app.price_per_photo');
+                $cartDetail->amount = $photo->price;
                 $cartDetail->save();
 
-                $cart->total += config('app.price_per_photo');
+                // $cart->total += config('app.price_per_photo');
+                $cart->total += $photo->price;
                 $cart->items++;
                 $cart->save();
             }
         }
 
-        return redirect()->back()->with('success', "¡Se ha añadido la foto al carrito!");
+        // return redirect()->back()->with('success', "¡Se ha añadido la foto al carrito!");
+        return back()->with('success', "¡Se ha añadido la foto al carrito!");
     }
 
     public function addAlbum(Request $request)
@@ -233,34 +253,45 @@ class CartController extends Controller
         $photosId = AlbumPhoto::where('album_id', $request->album)->get('photo_id');
 
         foreach ($photosId as $photoId) {
-            if (Cart::where('user_id', Auth::user()->id)->first() === null)
-            {
+            if (Cart::where('user_id', Auth::user()->id)->first() === null) {
+                //Get Photo Object in order to get price
+                $photo = Photo::findOrFail($photoId->photo_id);
+
                 $cart = new Cart;
                 $cart->user_id = Auth::user()->id;
                 $cart->items = 1;
-                $cart->total = config('app.price_per_photo');
+                // $cart->total = config('app.price_per_photo');
+                $cart->total = $photo->price;
                 $cart->save();
 
                 $cartDetail = new CartDetail;
                 $cartDetail->cart_id = $cart->id;
                 $cartDetail->album_id = $request->album;
                 $cartDetail->photo_id = $photoId->photo_id;
-                $cartDetail->amount = config('app.price_per_photo');
+                // $cartDetail->amount = config('app.price_per_photo');
+                $cartDetail->amount = $photo->price;
                 $cartDetail->save();
             } else {
+
                 $cart = Cart::where('user_id', Auth::user()->id)->first();
 
                 if (CartDetail::where([['cart_id', $cart->id], ['album_id', $request->album], ['photo_id', $photoId->photo_id]])->first()) {
+                    //In case photo is ready to pay
                     continue;
                 } else {
+                    //Get Photo Object in order to get price
+                    $photo = Photo::findOrFail($photoId->photo_id);
+
                     $cartDetail = new CartDetail;
                     $cartDetail->cart_id = $cart->id;
                     $cartDetail->album_id = $request->album;
                     $cartDetail->photo_id = $photoId->photo_id;
-                    $cartDetail->amount = config('app.price_per_photo');
+                    // $cartDetail->amount = config('app.price_per_photo');
+                    $cartDetail->amount = $photo->price;
                     $cartDetail->save();
 
-                    $cart->total += config('app.price_per_photo');
+                    // $cart->total += config('app.price_per_photo');
+                    $cart->total += $photo->price;
                     $cart->items++;
                     $cart->save();
                 }
@@ -279,7 +310,11 @@ class CartController extends Controller
             return back()->withErrors(["¡Se ha producido un error!"]);
         }
 
-        $cart->total -= config('app.price_per_photo');
+        //Get Photo Object in order to get price
+        $photo = Photo::findOrFail($cartDetail->photo_id);
+
+        // $cart->total -= config('app.price_per_photo');
+        $cart->total -= $photo->price;
         $cart->items -= 1;
         $cart->save();
 

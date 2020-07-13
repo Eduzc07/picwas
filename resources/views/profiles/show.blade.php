@@ -6,11 +6,11 @@
 
 @include("layouts.navbar")
 
-<div class="container-fluid pt-2 px-md-5" style="background: #fafafa;">
+<div class="container-fluid pt-3 px-md-4">
     <div class="row">
-        <div class="col-12 col-md-4 col-lg-3 text-center">
+        <div class="col-12 col-md-4 col-lg-3 text-center pt-3">
             <div class="col-12 col-md-12">
-                <div class="mx-auto profile-photo-border rounded-circle bg-white">
+                <div class="mx-auto mx-md-4 mx-xl-5 profile-photo-border rounded-circle bg-white">
                     <div class="mx-md-0 mx-auto border profile-photo-img rounded-circle" style="background-image: url({{ asset('/storage/avatars/'.$user->avatar) }});">
                         @can('is_photographer', $user)
                             <div class="rounded-circle profile-photo-inside-container">
@@ -25,10 +25,12 @@
 
             <div class="row mx-auto mx-lg-0" style="max-width: 300px">
                 <div class="col-12 pl-lg-0">
-                    <p><h2>{{ $user->first_name}}<br>
-                    {{ $user->last_name}}</h2></p>
-                    <p><h5 class="text-break">{{ "@".$user->username }}</h5></p>
-                    <p></span><h6><span class="flag-icon flag-icon-{{strtolower(App\Country::find($user->country_id)->alpha_2_code)}} rounded"></span> {{App\Country::find($user->country_id)->name}}</h6></p>
+                    <p>
+                      <h4>{{ $user->first_name}}<br>
+                          {{ $user->last_name}}
+                      </h4>
+                      <h6 class="text-break">{{ "@".$user->username }} | <span class="flag-icon flag-icon-{{strtolower(App\Country::find($user->country_id)->alpha_2_code)}} rounded"></span> {{App\Country::find($user->country_id)->name}} </h6>
+                    </p>
                     <hr>
                     <p>{{$user->description}}</p>
                 </div>
@@ -56,7 +58,7 @@
             <div class="container-fluid">
                 @if (session()->get('success'))
                     <div class="alert alert-success alert-dismissible fade show text-left" role="alert">
-                        <h4>{{ session()->get('success') }}</h4>
+                        <h6>{{ session()->get('success') }}</h6>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -73,10 +75,11 @@
                             @endcan
                         </h4>
                     </div>
+
                     @can('edit', $user)
                         @can('is_photographer')
                             <div class="col-12 col-md-6 text-center text-md-right">
-                                <a href="{{route('albums.create')}}" class="btn btn-sm button-style-2 text-white font-weight-bold px-3 py-1" style="font-size: 1.2rem;">Crear nuevo Álbum</a>
+                                <a href="{{route('albums.create')}}" class="btn btn-sm button-style-2 text-white font-weight-bold px-3 py-1" style="font-size: 1.2rem;">Crear nuevo álbum</a>
                             </div>
                         @endcan
                         @can('is_customer')
@@ -91,11 +94,13 @@
                     @endcan
                 </div>
 
+                <hr class="bg-color-1" style="height: 1px">
+
                 <div class="row">
                     @can('is_photographer', $user)
                         @forelse($albums as $album)
                             <div class="col-12 col-sm-6 col-md-4 mb-3">
-                                <div class="card h-100 border-0">
+                                <div class="card h-100 border-0" style="background: #ffffff66";>
                                     <a href="{{ route('albums.show', [$album->id]) }}" title="Ver álbum">
                                         <img src="{{asset('/storage/albums/'.$album->cover_photo)}}" class="card-img-top card-header p-0" style="height: 200px; object-fit: cover">
                                     </a>

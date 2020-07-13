@@ -52,7 +52,7 @@
 
                 @if (session()->get('success'))
                     <div class="alert alert-success alert-dismissible fade show text-left" role="alert">
-                        <h4>{{ session()->get('success') }}</h4>
+                        <h6>{{ session()->get('success') }}</h6>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -101,6 +101,13 @@
                         <label for="place" class="col-sm-4 col-form-label">Lugar</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control color-1 form-control-sm" id="place" name="place" value="@if ($errors->any() && old('place') !== null){{old('place')}}@else{{$album->place}}@endif">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="place" class="col-sm-4 col-form-label">Precio base por foto</label>
+                        <div class="col-sm-8">
+                            <label for="place" class="col-form-label color-1">S/. {{number_format((float)$album->price, 2, '.', '')}}</label>
                         </div>
                     </div>
 

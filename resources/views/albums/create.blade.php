@@ -6,9 +6,9 @@
 
 @include("layouts.navbar")
 
-<div class="container-fluid mt-3 px-md-5">
+<div class="container-fluid pt-3 px-md-4">
     <div class="row">
-        <div class="col-12 col-md-4 col-lg-3 text-center">
+        <div class="col-12 col-md-4 col-lg-3 text-center pt-3">
             <div class="col-12 col-md-12">
                 <div class="mx-auto mx-md-4 mx-xl-5 profile-photo-border rounded-circle bg-white">
                     <div class="mx-md-0 mx-auto border profile-photo-img rounded-circle" style="background-image: url({{ asset('/storage/avatars/'.Auth::user()->avatar) }});">
@@ -23,7 +23,8 @@
 
             <div class="row mx-auto mx-lg-0" style="max-width: 300px">
                 <div class="col-12 pl-lg-0">
-                    <p><h2>{{ Auth::user()->first_name . " " . Auth::user()->last_name}}</h2></p>
+                    <p><h2>{{ Auth::user()->first_name}}<br>
+                    {{ Auth::user()->last_name}}</h2></p>
                     <p><h5 class="text-break">{{ "@".Auth::user()->username }}</h5></p>
                     <p><h6><span class="flag-icon flag-icon-{{strtolower(App\Country::find(Auth::user()->country_id)->alpha_2_code)}} rounded"></span> {{App\Country::find(Auth::user()->country_id)->name}}</h6></p>
                     <hr>
@@ -104,6 +105,30 @@
                     </div>
 
                     <div class="form-group row">
+                        <label for="place" class="col-sm-4 col-form-label">Precio base por foto</label>
+                        <div class="col-sm-8">
+                            <div class="text-center">
+                                <div class="input-group inline-group">
+                                  <div class="input-group-prepend">
+                                    <button class="btn btn-outline-secondary btn-minus" onclick="decrease(event)">
+                                      <i class="fa fa-minus"></i>
+                                    </button>
+                                  </div>
+
+                                  <span class="input-group-append prefix-val font-weight-bold color-1">&nbsp; S/. &nbsp;</span>
+                                  <input id="price" class="form-control quantity color-1" name="price" value="{{number_format((float)config('app.price_per_photo'), 2, '.', '')}}" lang="en" data-decimals="2" min="0" max="100" step="1.00" type="number" placeholder='0.00' onchange="setTwoNumberDecimal(this);">
+
+                                  <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-plus" onclick="increase(event)">
+                                      <i class="fa fa-plus"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label for="description" class="col-12 col-form-label">Descripción</label>
                         <div class="col-12">
                             <textarea class="form-control color-1" rows="8" resizable="false" style="resize: none;" name="description">@if ($errors->any()){{old('description')}}@endif</textarea>
@@ -113,7 +138,7 @@
                     <div class="w-100"></div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <button type="submit" class="btn button-style-1 text-white">Crear álbum</button>
+                            <button type="submit" class="btn button-style-1 text-white">Crear álbum y agregar Fotos</button>
                         </div>
                     </div>
                 </form>
@@ -126,4 +151,60 @@
 @section('loadScripts')
     <script src="{{ asset('js/scripts.js') }}"></script>
     <script src="{{ asset('js/bootstrap-filestyle.min.js') }}"></script>
+    <script>
+        function decrease(e){
+          e.preventDefault();
+
+          //Avoid to decrease twice when enter is pressed
+          var tagname = $(e.target)[0].tagName;
+          if (tagname == 'BUTTON'){
+             return;
+          }
+
+          // const input = $(e.target).closest('.input-group').find('input');
+          const input = document.getElementById('price');
+          // if (input.is('input')) {
+          // input[0][isNegative ? 'stepDown' : 'stepUp']();
+          var currentValue = parseFloat(input.value);
+          var step = parseFloat(input.attributes.step.value);
+          var newValue = currentValue - step;
+          if(newValue <= 0){
+            newValue = 0;
+          }
+          newValue = parseFloat(newValue).toFixed(2);
+          input.value = newValue
+          // }
+        }
+
+        function increase(e){
+          e.preventDefault();
+          // const input = $(e.target).closest('.input-group').find('input');
+          const input = document.getElementById('price');
+
+          // if (input.is('input')) {
+          // input[0][isNegative ? 'stepDown' : 'stepUp']();
+          var currentValue = parseFloat(input[0].value);
+          var step = parseFloat(input[0].attributes.step.value);
+          var newValue = currentValue + step;
+          if(newValue >= 100){
+            newValue = 100;
+          }
+          newValue = parseFloat(newValue).toFixed(2);
+          input[0].value = newValue;
+          // }
+        }
+
+        function setTwoNumberDecimal(obj) {
+          var value = obj.value;
+          if (value >= 100){
+            value = 100;
+          }
+          if (value <= 0){
+            value = 0;
+          }
+          value = parseFloat(value).toFixed(2);
+          obj.value = value;
+        }
+
+    </script>
 @endsection

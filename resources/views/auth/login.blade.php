@@ -41,9 +41,9 @@
                         @endif
                     </form>
 
-                    <a href="{{ route('register') }}" class="btn btn-link text-white"><h3>Crea una cuenta gratissss</h3></a>
+                    <a href="{{ route('register') }}" class="btn btn-link text-white"><h3>Crea una cuenta gratis</h3></a>
                 </div>
-                <div class="col-6 mx-auto" style="background: red;">
+                <div class="col-6 mx-auto">
                     @if ($errors->any())
                         <div class="alert alert-danger alert-dismissible fade show text-left position-fixed" role="alert" style="top: 8px; right: 8px; padding: 10px 40px 0px 10px;">
                             <ul>
@@ -63,7 +63,8 @@
     <a href="{{route('/')}}" class="mx-auto fixed-bottom d-none d-md-block">
         <div class="mx-auto fixed-bottom bg-red-opacity-50 w-100 h-100 rounded-circle d-none d-md-block" style="z-index: -888; max-width: 180px; max-height: 180px; bottom: -30px;">
             <div class="h-100">
-                <img class="img-fluid p-4 align-self-center mt-4" src="{{ asset('img/logo_white_dark_shadow.png') }}" alt="">
+                <!-- <img class="img-fluid p-4 align-self-center mt-4" src="{{ asset('img/logo_white_dark_shadow.png') }}" alt=""> -->
+                <img class="img-fluid p-4 align-self-center mt-4" src="{{ asset('img/logo_white_shadow.png') }}" alt="">
             </div>
         </div>
     </a>

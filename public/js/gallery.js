@@ -1,4 +1,4 @@
-// ====== Galeria ======= 
+// ====== Galeria =======
 let modalId = $('#image-gallery');
 
 $(document).ready(function () {
@@ -13,6 +13,12 @@ $(document).ready(function () {
         } else if (counter_current === 1) {
             $('#show-previous-image').hide();
         }
+
+        // Hide Both in case album has only one photo
+        if (counter_max === 1) {
+          $('#show-previous-image').hide();
+          $('#show-next-image').hide();
+        }
     }
 
     /**
@@ -20,7 +26,6 @@ $(document).ready(function () {
      * @param setIDs        Sets IDs when DOM is loaded. If using a PHP counter, set to false.
      * @param setClickAttr  Sets the attribute for the click handler.
      */
-
     function loadGallery(setIDs, setClickAttr) {
         let current_image, selector, counter = 0;
 
@@ -33,11 +38,13 @@ $(document).ready(function () {
 
             selector = $('[data-image-id="' + current_image + '"]');
             updateGallery(selector);
+
         });
 
         function updateGallery(selector) {
             let $sel = selector;
             current_image = $sel.data('image-id');
+
             $('#image-gallery-title').text($sel.data('title'));
             $('#image-gallery-image').attr('src', $sel.data('image'));
             $('#image-gallery-image').attr('reference', $sel.data('reference'));
@@ -45,7 +52,7 @@ $(document).ready(function () {
 
             if ($sel.data('in-cart')) {
                 $('#modal-gallery-footer').addClass('d-none');
-                $("#cart-result").html('<p class="text-success mb-0">Añadido al <a href="http://127.0.0.1:8000/cart">carrito</a></p>');
+                $("#cart-result").html('<p class="text-success mb-0 text-right py-2 pr-3" style="font-size: 1.2rem;">Añadido al <a href="http://127.0.0.1:8000/cart">carrito</a></p>');
                 $('#modal-gallery-footer').html('');
             } else {
                 $('#modal-gallery-footer').removeClass('d-none');
@@ -62,6 +69,7 @@ $(document).ready(function () {
                 $(this).attr('data-image-id', counter);
             });
         }
+
         $(setClickAttr).on('click', function () {
             updateGallery($(this));
         });

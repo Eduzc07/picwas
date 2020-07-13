@@ -9,6 +9,8 @@
 
 define('LARAVEL_START', microtime(true));
 
+define('PICWAS_PATH', '/home/daireu1b/picwas');
+
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
@@ -21,7 +23,7 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
-require __DIR__.'/../vendor/autoload.php';
+require PICWAS_PATH.'/vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +37,18 @@ require __DIR__.'/../vendor/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/../bootstrap/app.php';
+$app = require_once PICWAS_PATH.'/bootstrap/app.php';
+
+/*
+|--------------------------------------------------------------------------
+| Change public Path
+|--------------------------------------------------------------------------
+|We need to say that public path is the current folder
+|
+*/
+$app->bind('path.public', function() {
+    return __DIR__;
+});
 
 /*
 |--------------------------------------------------------------------------

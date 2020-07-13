@@ -53,6 +53,7 @@ class AlbumController extends Controller
             'album_cover' => ['image', 'mimes:jpeg,png,jpg', 'max:'.config('app.max_file_upload_size')],
             'topic' => ['required', 'string', 'max:255', 'in:Deporte,Danzas,Lugares Turísticos,Otros'],
             'place' => ['nullable', 'string', 'max:100'],
+            'price' => ['required', 'numeric', 'min:0|digits_between: 0.00, 100.00'],
             'description' => ['nullable', 'string', 'max:255']
         ]);
 
@@ -65,6 +66,7 @@ class AlbumController extends Controller
         $album->name = $request->album_name;
         $album->publication_time = $publishedUntil;
         $album->place = $request->place;
+        $album->price = $request->price;
         $album->description = $request->description;
         $album->category = $request->topic;
         $album->privacy_public = true;
@@ -82,7 +84,8 @@ class AlbumController extends Controller
             $request->album_cover->storeAs('albums', $coverName);
         }
 
-        return redirect()->route('user', [Auth::user()->username])->with('success', "¡Se ha creado tu álbum!");
+        // return redirect()->route('user', [Auth::user()->username])->with('success', "¡Se ha creado tu álbum!");
+        return redirect()->route('albums.show', [$album->id])->with('success', "¡Se ha creado tu álbum!");
     }
 
     /**

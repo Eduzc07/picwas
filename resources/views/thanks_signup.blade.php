@@ -23,7 +23,7 @@
                 <div class="col-12">
                     <h3 class="mt-5 mb-4">¡Gracias Fabiola!</h3>
                     <p>Revise su correo electrónico para verificar su cuenta.</p>
-                    <p>El correo electrónico se envió a: fzarate.caceres@gmail.com <b><a href="">cambiar</a></b></p>
+                    <p>El correo electrónico se envió a: <b><a href="">cambiar</a></b></p>
                     <p>¿No recibió un correo electrónico? <b><a href="">Volver a enviar</a></b></p>
                 </div>
             </div>

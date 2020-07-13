@@ -6,10 +6,10 @@
 
 @include("layouts.navbar")
 
-<div class="container-fluid pt-2 px-md-5" style="background: #fafafa;">
+<div class="container-fluid pt-2 px-md-4">
     <div class="row">
         <div class="col-12 col-md-4 col-lg-3 text-center">
-            <div class="col-12 col-md-12">
+            <div class="col-12 col-md-12 pt-3">
                 <div class="mx-auto mx-md-4 mx-xl-5 profile-photo-border rounded-circle bg-white">
                     <div class="mx-md-0 mx-auto border profile-photo-img rounded-circle" style="background-image: url({{ asset('/storage/avatars/'.Auth::user()->avatar) }});">
                         @can('is_photographer', Auth::user())
@@ -76,17 +76,19 @@
                     </div>
                 </div>
 
+                <hr class="bg-color-1" style="height: 1px">
+
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
                     @forelse($photos as $photo)
                         <div class="col my-4 text-center">
                             <a class="thumbnail text-decoration-none text-dark" href="#" data-image-id="" data-toggle="modal" data-title="" data-image="{{asset('storage/purchased_photos_thumbnails/'.$photo->modified_image)}}" data-target="#image-gallery">
 
-                                <img class="w-100 h-100 rounded" src="{{asset('storage/purchased_photos_thumbnails/'.$photo->modified_image)}}" style="object-fit: cover;">
+                                <img class="w-100 h-100 rounded" src="{{asset('storage/purchased_photos_thumbnails/'.$photo->modified_image)}}" style="object-fit: cover; max-height: 180px;">
                             </a>
                             <a href="{{ route('photo.download', [$photo->id]) }}" class="btn btn-link">Descargar</a>
                         </div>
                     @empty
-                        <div class="my-4 text-center mx-auto">
+                        <div class="col my-4 text-center mx-auto">
                             <h4 class="text-warning">No has comprado ninguna foto.</h4>
                         </div>
                     @endforelse
@@ -99,14 +101,14 @@
                                 <div class="position-absolute h-100" style="z-index:1">
                                     <div class="row h-100 align-items-center">
                                         <div class="col">
-                                            <button type="button" class="btn text-white" id="show-previous-image"><i class="fa fa-arrow-circle-left" style="font-size: 2rem"></i></button>
+                                            <button type="button" class="btn text-white" id="show-previous-image"><i class="fa fa-arrow-circle-left" style="font-size: 4rem"></i></button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="position-absolute h-100" style="z-index:1; right: 0px">
                                     <div class="row h-100 align-items-center">
                                         <div class="col">
-                                            <button type="button" id="show-next-image" class="btn text-white"><i class="fa fa-arrow-circle-right" style="font-size: 2rem"></i></button>
+                                            <button type="button" id="show-next-image" class="btn text-white"><i class="fa fa-arrow-circle-right" style="font-size: 4rem"></i></button>
                                         </div>
                                     </div>
                                 </div>

@@ -27,4 +27,8 @@ class CommonController extends Controller
     public function showRegisterCustomer() {
         return view('auth.customers.register');
     }
+
+    public function showTerms() {
+        return view('auth.customers.terms');
+    }
 }

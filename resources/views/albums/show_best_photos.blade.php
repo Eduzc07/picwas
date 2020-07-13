@@ -6,9 +6,9 @@
 
 @include("layouts.navbar")
 
-<div class="container-fluid mt-3 px-md-5">
+<div class="container-fluid pt-3 px-md-4">
     <div class="row">
-        <div class="col-12 col-md-4 col-lg-3 text-center">
+        <div class="col-12 col-md-4 col-lg-3 text-center pt-3">
             <div class="col-12 col-md-12">
                 <div class="mx-auto mx-md-4 mx-xl-5 profile-photo-border rounded-circle bg-white">
                     <div class="mx-md-0 mx-auto border profile-photo-img rounded-circle" style="background-image: url({{ asset('/storage/avatars/'.Auth::user()->avatar) }});">
@@ -25,7 +25,8 @@
 
             <div class="row mx-auto mx-lg-0" style="max-width: 300px">
                 <div class="col-12 pl-lg-0">
-                    <p><h2>{{ Auth::user()->first_name . " " . Auth::user()->last_name}}</h2></p>
+                    <p><h2>{{ Auth::user()->first_name}}<br>
+                    {{ Auth::user()->last_name}}</h2></p>
                     <p><h5 class="text-break">{{ "@".Auth::user()->username }}</h5></p>
                     <p></span><h6><span class="flag-icon flag-icon-{{strtolower(App\Country::find(Auth::user()->country_id)->alpha_2_code)}} rounded"></span> {{App\Country::find(Auth::user()->country_id)->name}}</h6></p>
                     <hr>
@@ -62,10 +63,12 @@
                     </div>
                     @can('edit', Auth::user())
                         <div class="col-12 col-md-6 text-center text-md-right">
-                            <a href="{{route('albums.create')}}" class="btn btn-sm button-style-2 text-white font-weight-bold px-3 py-1" style="font-size: 1.2rem;">Crear nuevo Álbum</a>
+                            <a href="{{route('albums.create')}}" class="btn btn-sm button-style-2 text-white font-weight-bold px-3 py-1" style="font-size: 1.2rem;">Crear nuevo álbum</a>
                         </div>
                     @endcan
                 </div>
+
+                <hr class="bg-color-1" style="height: 1px">
 
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
                     @forelse($photos as $photo)

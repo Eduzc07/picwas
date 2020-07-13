@@ -28,6 +28,8 @@ Route::group(['middleware' => 'prevent-back-history'], function() {
 
     Route::post('/register/customer', 'Auth\RegisterController@registerCustomer')->middleware('guest')->name('customers.register');
 
+    Route::get('/register/terms', 'CommonController@showTerms')->middleware('guest')->name('customers.terms');
+
     Route::get('/user/{username}', 'ProfileController@show')->where('username', '[A-Za-z0-9]+')->middleware('auth', 'verified')->name('user');
 
     Route::get('/user/{username}/edit', 'ProfileController@edit')->where('username', '[A-Za-z0-9]+')->middleware('auth', 'verified')->name('user.edit');
@@ -54,6 +56,7 @@ Route::get('/photos/best', 'PhotoController@getBestPhotos')->name('photos.best')
 Route::get('/download/{id}', 'PhotoController@download')->name('photo.download')->middleware('auth', 'verified');
 
 Route::get('photos', 'PhotoController@purchasedPhotos')->name('photos.purchased')->middleware('auth', 'verified');
+Route::post('/photos/update', 'PhotoController@update')->name('photos.update')->middleware('auth', 'verified');
 
 Route::any('/search', 'SearchController@doSearch')->name('search')->middleware('auth', 'verified');
 Route::get('/search/photographer', 'SearchController@showPhotographerSearch')->name('search.photographer')->middleware('auth', 'verified');

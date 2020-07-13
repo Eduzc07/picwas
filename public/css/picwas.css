@@ -125,9 +125,10 @@
 	/* background: red; */
 }
 
-#input-price {
+#input-price, #price{
 	/* font-size: 1.2rem; */
 	text-align: right;
+	background: #ffffff88;
 }
 
 /* .inline-group .form-control {
@@ -162,6 +163,24 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-input[type=email], input[type=password] {
+#formLogin input[type=email], #formLogin input[type=password] {
   background: #ffffffaa;
+}
+
+#show-previous-image :hover, #show-next-image :hover {
+  	color: rgba(237, 19, 92);
+}
+
+#search-field {
+	background: #ffffffaa;
+}
+
+body, #background-register  {
+	background: url("../img/background_pages.jpg") no-repeat center;
+	background-size: 100% auto;
+	background-color: #fafafa;
+}
+
+.table {
+  background: #ffffff88;
 }

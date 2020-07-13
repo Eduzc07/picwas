@@ -36,6 +36,7 @@ CREATE TABLE `albums` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `publication_time` date DEFAULT NULL,
   `place` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `price` float DEFAULT NULL,
   `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `category` enum('Deporte','Danzas','Lugares Turísticos','Otros') COLLATE utf8mb4_unicode_ci NOT NULL,
   `privacy_public` tinyint(1) NOT NULL DEFAULT 1,
@@ -374,35 +375,6 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Volcado de datos para la tabla `migrations`
---
-
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(22, '2014_10_12_000000_create_users_table', 1),
-(23, '2014_10_12_100000_create_password_resets_table', 1),
-(24, '2019_08_19_000000_create_failed_jobs_table', 1),
-(25, '2020_04_16_032317_add_profile_data_to_users_table', 1),
-(26, '2020_04_16_192040_create_table_countries', 1),
-(27, '2020_04_16_203239_modify_country_column_to_users_table', 1),
-(28, '2020_04_23_175115_add_signin_alert_and_privacy_status_to_users_table', 1),
-(29, '2020_04_25_044728_create_photos_table', 1),
-(30, '2020_04_25_070138_create_albums_table', 1),
-(31, '2020_04_25_165132_create_albums_photos_table', 1),
-(32, '2020_05_11_060820_create_cart_table', 1),
-(33, '2020_05_11_062044_create_cart_details_table', 1),
-(34, '2020_05_12_021612_add_album_id_to_cart_details_table', 1),
-(35, '2020_05_15_202115_create_roles_table', 1),
-(36, '2020_05_15_214224_add_role_to_users_table', 1),
-(37, '2020_05_20_052252_add_best_to_photos_table', 1),
-(38, '2020_05_20_235025_add_category_to_albums_table', 1),
-(39, '2020_05_28_043638_create_purchased_photos_table', 1),
-(40, '2020_05_29_194142_add_balance_to_users_table', 1),
-(41, '2020_05_30_055359_add_payer_info_to_users_table', 1),
-(42, '2020_06_01_021432_add_last_ip_login_to_users_table', 1);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `password_resets`
 --
 
@@ -423,6 +395,7 @@ CREATE TABLE `photos` (
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `original_image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `modified_image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` float DEFAULT NULL,
   `best` tinyint(1) NOT NULL DEFAULT 0,
   `privacy_public` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,

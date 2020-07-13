@@ -17,12 +17,12 @@ class MercadoPagoController extends Controller
 
     public function success()
     {
-        return redirect()->route('cart')->with('success', '¡Se ha realizado tu compra! podras ver las fotos compradas en la sección de Mis fotos.');
+        return redirect()->route('cart')->with('success', '¡Se ha realizado tu compra! podrás ver las fotos compradas en la sección de Mis fotos.');
     }
 
     public function failure()
     {
-        return redirect()->route('cart')->withErrors(['¡No se ha realizado tu compra! Intentalo de nuevo mas tarde y verifica tu medio de pago.']);
+        return redirect()->route('cart')->withErrors(['¡No se ha realizado tu compra! Intentalo de nuevo más tarde y verifica tu medio de pago.']);
     }
 
     public function webhook()

@@ -48,20 +48,28 @@ class PhotoController extends Controller
     public function store(Request $request, $albumId)
     {
         $request->validate([
-            'add_photos' => ['required', 'max:'.config('app.max_multiple_file')],
+            // 'add_photos' => ['required', 'max:'.config('app.max_multiple_file')],
+            'add_photos' => ['required', 'max:500'],
             'add_photos.*' => ['image', 'mimes:jpeg,png,jpg', 'max:'.config('app.max_file_upload_size')]
             // 'add_photos' => ['required'],
             // 'add_photos.*' => ['image', 'mimes:jpeg,png,jpg']
         ]);
 
+        // dd($request);
+
         if($request->hasfile('add_photos')) {
             foreach($request->file('add_photos') as $addPhoto) {
                 $photoName = Auth::user()->id.'_album_'.$albumId.'_'.(time()*rand(1, 4)+rand(0, 50000)).'.'.$addPhoto->getClientOriginalExtension();
+
+                //Use the initial price
+                $album = Album::findOrFail($albumId);
 
                 $photo = new Photo;
                 $photo->user_id = Auth::user()->id;
                 $photo->original_image = $photoName;
                 $photo->modified_image = $photoName;
+                // $photo->price = config('app.price_per_photo');
+                $photo->price = $album->price;
                 $photo->save();
 
                 //$photoId = DB::table('photos')->insertGetId(['user_id'=>Auth::user()->id, 'original_image' => $photoName, 'modified_image' => $photoName]);
@@ -83,26 +91,27 @@ class PhotoController extends Controller
                 $originalWidth = $image->width();
                 $originalHeight = $image->height();
 
-                if ($originalWidth > 320) {
+                if ($originalWidth > 640) {
                     // resize the image to a width of 1280 and constrain aspect ratio (auto height)
-                    $image->resize(320, null, function ($constraint) {
+                    $image->resize(640, null, function ($constraint) {
                         $constraint->aspectRatio();
                     });
                 }
 
-                if ($originalHeight > 240) {
+                if ($originalHeight > 480) {
                     // resize the image to a width of 1280 and constrain aspect ratio (auto height)
-                    $image->resize(null, 240, function ($constraint) {
+                    $image->resize(null, 480, function ($constraint) {
                         $constraint->aspectRatio();
                     });
                 }
 
-                $image->insert($watermark, 'center', 5, 5);
+                // $image->insert($watermark, 'center', 5, 5);
+                $image->insert($watermark, 'center');
                 $image->save(public_path('storage/albums_photos/').$photoName);
             }
         }
 
-        return redirect()->back()->with('success', "¡Se han añadido las fotos a tu álbum!");
+        return redirect()->back()->with('success', "¡Se han añadido fotos a tu álbum!");
     }
 
     /**
@@ -134,9 +143,13 @@ class PhotoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    // public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        //Update Price of photo
+        $photo = Photo::findOrFail($request->photo);
+        $photo->price = $request->price;
+        $photo->save();
     }
 
     /**

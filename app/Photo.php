@@ -19,6 +19,7 @@ class Photo extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'original_image', 'modified_image', 'privacy_public',
+        'user_id', 'original_image', 'modified_image', 'price', 'privacy_public',
     ];
+    // 'user_id', 'original_image', 'modified_image', 'privacy_public',
 }

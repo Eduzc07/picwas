@@ -14,7 +14,8 @@
 <div class="container text-white h-100">
     <div class="row align-items-center" style="height: 100vh;">
         <div class="col-12 text-center">
-            <img src="{{ asset('img/logo_white_dark_shadow.png') }}" alt="" class="card-img-top img-fluid text-nowrap" style="min-width: 170px; max-width: 500px;">
+            <!-- <img src="{{ asset('img/logo_white_dark_shadow.png') }}" alt="" class="card-img-top img-fluid text-nowrap" style="min-width: 170px; max-width: 500px;"> -->
+            <img src="{{ asset('img/logo_white_shadow.png') }}" alt="" class="card-img-top img-fluid text-nowrap" style="min-width: 170px; max-width: 600px;">
             <div class="w-100 mt-5 mb-4">
                 <h1 style="font-size: 3.5rem; text-shadow: 0px 0px 6px #000000;">¡Bienvenido!</h1>
             </div>

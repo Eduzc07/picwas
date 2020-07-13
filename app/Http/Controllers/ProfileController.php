@@ -111,7 +111,7 @@ class ProfileController extends Controller
         $request->validate([
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)],
+            'username' => ['required', 'string', 'max:12', Rule::unique('users')->ignore(Auth::user()->id)],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)]
         ]);
 
@@ -151,7 +151,7 @@ class ProfileController extends Controller
             $defaultAvatarValue = substr($defaultAvatarValue, 0, -1);
 
             if ($user->avatar !== $defaultAvatarValue) {
-                if (Storage::exists('avatars/'.$user->avatar)) {
+                if ($user->avatar != 'user.png' && Storage::exists('avatars/'.$user->avatar)) {
                     Storage::delete('avatars/'.$user->avatar);
                 }
             }

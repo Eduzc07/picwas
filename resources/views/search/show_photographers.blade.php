@@ -6,19 +6,19 @@
 
 @include("layouts.navbar")
 
-<div class="container-fluid pt-2 px-md-5">
+<div class="container-fluid pt-2 px-md-4">
     <div class="row">
-        <div class="col-12 text-center">
+        <div class="col-12 text-center py-2">
             <form id="formSearchPhotographer" action="{{route('search.photographer')}}" method="POST" onsubmit="preventMultipleSubmitForm(this, '{{ asset('icons/blocks.svg')}}')">
                 @csrf
-                <div class="row">
-                   <div class="col-sm-6">
-                     <h1 class="color-1" style="font-size: 2rem">
+                <div class="row h-100">
+                   <div class="col-sm-6 my-auto">
+                     <h1 class="color-1 my-auto" style="font-size: 2rem;">
                          Buscar Fotógrafo
                      </h1>
                    </div>
-                   <div class="col-sm-3">
-                     <select name="country" class="form-control p-2 mb-2 mx-auto color-1" style="max-width: 24rem; font-size: 1.2rem;">
+                   <div class="col-sm-3 my-auto">
+                     <select name="country" class="form-control p-2 mb-2 mx-auto color-1 my-auto" style="max-width: 24rem; font-size: 1.2rem;">
                          <option disabled selected>País</option>
                          <!-- <option value="AF" {{ old('country') == "AF"?'selected':''}}>Afganistán</option>
                          <option value="AL" {{ old('country') == "AL"?'selected':''}}>Albania</option>
@@ -259,21 +259,25 @@
                          <option value="ZW" {{ old('country') == "ZW"?'selected':''}}>Zimbabue</option> -->
                      </select>
                    </div>
-                   <div class="col-sm-3">
-                     <button type="submit" class="btn button-style-2 text-white font-weight-bold px-5" style="font-size: 1.2rem;">Buscar</button>
+                   <div class="col-sm-3 my-auto">
+                     <button type="submit" class="btn button-style-2 text-white font-weight-bold px-5 my-auto" style="font-size: 1.2rem;">Buscar</button>
                    </div>
                 </div>
             </form>
         </div>
     </div>
-    <hr>
+
+    <hr class="bg-color-1" style="height: 1px">
+
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 justify-content-center">
         @forelse($photographers as $photographer)
             <div class="col-12 col-sm-6 col-md-4 mb-3 text-center">
                 <a href="{{ route('user', [$photographer->username]) }}" title="Ver sus álbumes">
                     <img src="{{asset('/storage/avatars/'.$photographer->avatar)}}" class="img-fluid rounded-circle border my-3" style="height: 150px; width: 150px; object-fit: cover">
                 </a>
-                <h5>{{$photographer->first_name . " " . $photographer->last_name}}</h5>
+                <h5>{{$photographer->first_name}}<br>
+                    {{$photographer->last_name}}
+                </h5>
                 <h6><span class="flag-icon flag-icon-{{strtolower(App\Country::find($photographer->country_id)->alpha_2_code)}} rounded"></span> {{App\Country::find($photographer->country_id)->name}}</h6>
             </div>
             @empty

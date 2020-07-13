@@ -43,7 +43,7 @@
                         <h4 class="pt-2">Álbumes</h4>
                     </div>
                     <div class="col-12 col-md-6 text-center text-md-right">
-                        <button type="submit" class="btn btn-sm button-style-2 text-white font-weight-bold px-3 py-1" style="font-size: 1.2rem;">Crear nuevo Álbum</button>
+                        <button type="submit" class="btn btn-sm button-style-2 text-white font-weight-bold px-3 py-1" style="font-size: 1.2rem;">Crear nuevo álbum</button>
                     </div>
                 </div>
                 <div class="row">
