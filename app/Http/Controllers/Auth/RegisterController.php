@@ -64,7 +64,7 @@ class RegisterController extends Controller
             'lastname' => ['required', 'string', 'max:255'],
             'country' => ['required', 'string', 'max:255', Rule::in($countriesCode)],
             'birthdate' => ['required', 'date'],
-            'username' => ['required', 'string', 'max:255', 'unique:users,username'],
+            'username' => ['required', 'string', 'regex:/(^[A-Za-z0-9]+$)+/' ,'max:20', 'unique:users,username'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'age_verification' => ['accepted'],
@@ -80,7 +80,8 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $countryId = Country::where('alpha_2_code', strtoupper($data['country']))->first()->id;
-        return User::create([
+
+        $user = User::create([
             'first_name' => ucwords($data['firstname']),
             'last_name' => ucwords($data['lastname']),
             'country_id' => $countryId,
@@ -90,6 +91,8 @@ class RegisterController extends Controller
             'email' => strtolower($data['email']),
             'password' => Hash::make($data['password']),
         ]);
+
+        return $user;
     }
 
     public function showRegistrationForm()
@@ -109,7 +112,7 @@ class RegisterController extends Controller
             'lastname' => ['required', 'string', 'max:255'],
             'country' => ['required', 'string', 'max:255', Rule::in($countriesCode)],
             'birthdate' => ['required', 'date'],
-            'username' => ['required', 'string', 'max:255', 'unique:users,username'],
+            'username' => ['required', 'string', 'regex:/(^[A-Za-z0-9]+$)+/' ,'max:20', 'unique:users,username'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'age_verification' => ['accepted'],
@@ -128,7 +131,8 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
             'account_visibility_public' => false,
         ]);
-
+        //Force to send mail
+        $user->sendEmailVerificationNotification();
         Auth::login($user);
         return Redirect::to("/user/$user->username");
     }

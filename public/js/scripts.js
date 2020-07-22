@@ -6,5 +6,6 @@ function preventMultipleSubmit(button, loader, position = 'center') {
 function preventMultipleSubmitForm(form, loader, position = 'center') {
     formId = form.id;
     $('#'+formId+' button[type=submit]').addClass('d-none');
-    $('#'+formId+' button[type=submit]').after('<div class="loader" align="'+position+'"><img id="espera_icon" align="'+position+'" src="'+loader+'" style="max-width: 60px; width: 100%;"/></div>');
+    // $('#'+formId+' button[type=submit]').after('<div class="loader text-center" align="'+position+'"><img id="espera_icon" align="'+position+'" src="'+loader+'" style="max-width: 60px; width: 100%;"/></div>');
+    $('#'+formId+' #espera_icon').removeClass('d-none');
 }

@@ -66,7 +66,7 @@ class AlbumController extends Controller
         $album->name = $request->album_name;
         $album->publication_time = $publishedUntil;
         $album->place = $request->place;
-        $album->price = $request->price;
+        $album->price = $request->price; //10% + 2
         $album->description = $request->description;
         $album->category = $request->topic;
         $album->privacy_public = true;
@@ -158,8 +158,8 @@ class AlbumController extends Controller
             $defaultCoverPhoto = $this->getDefaultColumnValue('cover_photo', $album);
 
             // remove quotation marks returned by the getDefaultColumnValue function
-            $defaultCoverPhoto = substr($defaultCoverPhoto, 1);
-            $defaultCoverPhoto = substr($defaultCoverPhoto, 0, -1);
+            // $defaultCoverPhoto = substr($defaultCoverPhoto, 1);
+            // $defaultCoverPhoto = substr($defaultCoverPhoto, 0, -1);
 
             if ($album->cover_photo !== $defaultCoverPhoto) {
                 if (Storage::exists('albums/'.$album->cover_photo)) {

@@ -50,9 +50,11 @@ $(document).ready(function () {
             $('#image-gallery-image').attr('reference', $sel.data('reference'));
             $('#image-gallery-image').attr('in-cart', $sel.data('in-cart'));
 
+            console.log('<a href="' + $sel.data('route') + '">carrito</a>');
+
             if ($sel.data('in-cart')) {
                 $('#modal-gallery-footer').addClass('d-none');
-                $("#cart-result").html('<p class="text-success mb-0 text-right py-2 pr-3" style="font-size: 1.2rem;">Añadido al <a href="http://127.0.0.1:8000/cart">carrito</a></p>');
+                $("#cart-result").html('<p class="text-success mb-0 text-right py-2 pr-3" style="font-size: 1.2rem; z-index: 1; position: relative;">Añadido al <a href="' + $sel.data('route') + '">carrito</a></p>');
                 $('#modal-gallery-footer').html('');
             } else {
                 $('#modal-gallery-footer').removeClass('d-none');

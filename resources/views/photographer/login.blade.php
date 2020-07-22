@@ -47,7 +47,7 @@
 
                         <div class="w-100"></div>
 
-                        <button type="submit" class="btn button-style-1 text-white">Ingresar</button>
+                        <button type="submit" class="btn button-style-1 text-white"><h4>Ingresar</h4></button>
                     </form>
 
                     <a href="{{ route('photographer.signup') }}" class="btn btn-link text-white"><h3>Crea una cuenta gratis</h3></a>

@@ -32,7 +32,11 @@
 
                         <div class="w-100"></div>
 
-                        <button type="submit" class="btn button-style-1 text-white">Ingresar</button>
+                        <button type="submit" class="btn button-style-1 text-white"><h4>Ingresar</h4></button>
+                        <div id="espera_icon" class="loader text-center d-none" align="center">
+                            <img align="center" src="{{asset('icons/blocks.svg')}}" style="max-width: 60px; width: 100%;"/>
+                        </div>
+
                         <div class="w-100"></div>
                         @if (Route::has('password.request'))
                             <a class="btn btn-link p-1 text-white" href="{{ route('password.request') }}">

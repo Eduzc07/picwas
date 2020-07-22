@@ -105,7 +105,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="place" class="col-sm-4 col-form-label">Precio base por foto</label>
+                        <label for="place" class="col-sm-4 col-form-label">Precio base por foto (> S/. 5.00)</label>
                         <div class="col-sm-8">
                             <div class="text-center">
                                 <div class="input-group inline-group">
@@ -156,8 +156,8 @@
           e.preventDefault();
 
           //Avoid to decrease twice when enter is pressed
-          var tagname = $(e.target)[0].tagName;
-          if (tagname == 'BUTTON'){
+          var tagname = e.pageX;
+          if (tagname == 0){
              return;
           }
 
@@ -168,8 +168,9 @@
           var currentValue = parseFloat(input.value);
           var step = parseFloat(input.attributes.step.value);
           var newValue = currentValue - step;
-          if(newValue <= 0){
-            newValue = 0;
+          //Photo will not cost less than 5
+          if(newValue <= 5){
+            newValue = 5;
           }
           newValue = parseFloat(newValue).toFixed(2);
           input.value = newValue
@@ -183,14 +184,14 @@
 
           // if (input.is('input')) {
           // input[0][isNegative ? 'stepDown' : 'stepUp']();
-          var currentValue = parseFloat(input[0].value);
-          var step = parseFloat(input[0].attributes.step.value);
+          var currentValue = parseFloat(input.value);
+          var step = parseFloat(input.attributes.step.value);
           var newValue = currentValue + step;
           if(newValue >= 100){
             newValue = 100;
           }
           newValue = parseFloat(newValue).toFixed(2);
-          input[0].value = newValue;
+          input.value = newValue;
           // }
         }
 
@@ -199,8 +200,8 @@
           if (value >= 100){
             value = 100;
           }
-          if (value <= 0){
-            value = 0;
+          if (value <= 5){
+            value = 5;
           }
           value = parseFloat(value).toFixed(2);
           obj.value = value;

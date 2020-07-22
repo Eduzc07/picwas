@@ -86,7 +86,7 @@
         <div class="col-12 col-md-8 col-lg-10 py-3 px-1">
           <div class="container">
               <div class="col">
-                  <form id="formAddPhotos" method="POST" action="{{ route('photos.store', [$album->id]) }}" enctype="multipart/form-data" onsubmit="preventMultipleSubmitForm(this, '{{ asset('icons/blocks.svg')}}', 'left')">
+                  <form id="formAddPhotos" method="POST" action="{{ route('photos.store', [$album->id]) }}" enctype="multipart/form-data" onsubmit="preventMultipleSubmitForm(this, '{{asset('icons/blocks.svg')}}', 'left')">
                       @csrf
 
                       @if ($errors->any())
@@ -122,8 +122,16 @@
                          </div>
                          <div class="col-sm-2 my-auto">
                            <button type="submit" class="btn button-style-2 text-white font-weight-bold">Publicar fotos</button>
+                           <div id="espera_icon" class="loader text-center d-none" align="center">
+                               <img align="center" src="{{asset('icons/blocks.svg')}}" style="max-width: 60px; width: 100%;"/>
+                           </div>
                          </div>
                       </div>
+
+                      <label class="w-100 form-label text-center">Nota: Se descontará S/2.00 + 10% por uso de la plataforma.</label>
+                      <!-- <label class="form-label">Nota: Precio de venta incluye el costo por uso de la plataforma y se calcula de la siguiente manera:</label> -->
+                      <!-- <label class="w-100 form-label text-center">Precio de Venta = Precio de foto + 10% + S/2.00</label> -->
+
                           <!-- <div class="form-group">
                               <label for="add_photos" class="form-label">Agrega fotos al album</label>
 
@@ -151,13 +159,19 @@
                                 data-reference="{{$photo->id}}"
                                 data-in-cart="{{($withCart && in_array($photo->id, $photoIdInCart)) ? 'true' : 'false'}}"
                                 data-test='<div class="p-2"><button onclick="showLoadModal(this, {{$photo->id}})" class="btn btn-success btn-sm">Añadir al carrito</button><span class="font-weight-bold align-middle ml-3 color-1" style="font-size: 1.4rem">S/. <small class="font-weight-bold">{{number_format((float)$photo->price, 2, '.', '')}}</small></span></div>'
+                                data-route='{{ route("cart") }}'
                                 >
-
                               <img class="w-100 h-100 rounded" src="{{asset('storage/albums_photos/'.$photo->modified_image)}}" style="object-fit: cover; max-height: 180px;">
                           </a>
                           @can('album_owner', $album)
 
                               <a onclick="addOrRemoveBestPhoto({{$photo->id}})" title="Añadir a mejores fotos" style="cursor: copy;"><i id="star-{{$photo->id}}" class="fa fa-star {{$photo->best ? 'text-warning' : 'text-white'}}" style="position: absolute; top: 10px; right: 22px; font-size: 1.3rem"></i></a>
+
+                              <!-- <div class="text-center">
+                                  <div class="price-group w-100">
+                                    <span id="price-{{$photo->id}}" class="color-3" style="border-radius: 5px;">P. de Venta: S/. {{number_format((float)$photo->price, 2, '.', '')}}</span>
+                                  </div>
+                              </div> -->
 
                               <div class="text-center pt-2">
                                   <!-- <span class="font-weight-bold align-middle color-1" style="font-size: 1.2rem">S/. <small class="font-weight-bold">{{config('app.price_per_photo')}}</small></span> -->
@@ -334,7 +348,7 @@
         }
 
         function addAlbumToCart(reference) {
-            console.log("albumId: "+reference);
+            // console.log("albumId: "+reference);
             $.ajax({
                 type: "POST",
                 url: "{{route('cart.add.album')}}",
@@ -387,7 +401,7 @@
                 // dataType: 'JSON',
                 success: function (response) {
                   $("#loader-cart").addClass('d-none');
-                  $("#cart-result").html('<p class="text-success mb-0 text-right py-2 pr-3" style="font-size: 1.2rem;">Añadido al <a href="{{ route("cart") }}">carrito</a></p>');
+                  $("#cart-result").html('<p class="text-success mb-0 text-right py-2 pr-3" style="font-size: 1.2rem; z-index: 1; position: relative;">Añadido al <a href="{{ route("cart") }}">carrito</a></p>');
                   $('#modal-gallery-footer').addClass('d-none');
 
                   //Save into a list
@@ -400,45 +414,90 @@
         }
 
         function decrease(e, photoID){
-          console.log(photoID);
+          // console.log(photoID);
           const input = $(e.target).closest('.input-group').find('input');
+
           if (input.is('input')) {
             // input[0][isNegative ? 'stepDown' : 'stepUp']();
             var currentValue = parseFloat(input[0].value);
             var step = parseFloat(input[0].attributes.step.value);
             var newValue = currentValue - step;
-            if(newValue <= 0){
-              newValue = 0;
+
+            //Photo will not cost less than 5
+            if(newValue <= 5){
+              newValue = 5;
             }
+
             newValue = parseFloat(newValue).toFixed(2);
             input[0].value = newValue
+
+            // Increase 10% more 2
+            // newValue = newValue * 1.10 + 2;
+            // newValue = parseFloat(newValue).toFixed(2);
+            // var price = document.getElementById('price-' + photoID);
+            // price.textContent = "P. de Venta: S/. " + newValue;
+
             updatePrice(photoID, newValue);
           }
         }
 
         function increase(e, photoID){
-          console.log(photoID);
+          // console.log(photoID);
           const input = $(e.target).closest('.input-group').find('input');
+
           if (input.is('input')) {
             // input[0][isNegative ? 'stepDown' : 'stepUp']();
             var currentValue = parseFloat(input[0].value);
             var step = parseFloat(input[0].attributes.step.value);
             var newValue = currentValue + step;
 
+            //Photo will not more than 100
+            if(newValue >= 100){
+              newValue = 100;
+            }
+
             newValue = parseFloat(newValue).toFixed(2);
             input[0].value = newValue;
+
+            // Increase 10% more 2
+            // newValue = newValue * 1.10 + 2;
+            // newValue = parseFloat(newValue).toFixed(2);
+            // //Show sell Price
+            // var price = document.getElementById('price-' + photoID);
+            // price.textContent = "P. de Venta: S/. " + newValue;
+
             updatePrice(photoID, newValue);
           }
         }
 
         function setTwoNumberDecimal(obj, photoID) {
-          var value = parseFloat(obj.value).toFixed(2);
+          var value = obj.value;
+
+          //Photo will not cost less than 5
+          if(value <= 5){
+            value = 5;
+          }
+
+          //Photo will not more than 100
+          if(value >= 100){
+            value = 100;
+          }
+
+          value = parseFloat(value).toFixed(2);
           obj.value = value;
-          updatePrice(photoID, value);
+
+          // Increase 10% more 2
+          // var newValue = value * 1.10 + 2;
+          // newValue = parseFloat(newValue).toFixed(2);
+          //Show sell Price
+          // var price = document.getElementById('price-' + photoID);
+          // price.textContent = "P. de Venta: S/. " + newValue;
+
+          updatePrice(photoID, newValue);
         }
 
         function updatePrice(photoID, value){
-          console.log("price: " + value);
+          // console.log("price: " + value);
           $.ajax({
               type: "POST",
               url: "{{route('photos.update')}}",
@@ -446,10 +505,9 @@
                   _token: "{{ csrf_token() }}",
                   photo: photoID,
                   price: value
-
               },
               success: function (response) {
-                console.log('Updated');
+                // console.log('Updated');
               }
           });
         }

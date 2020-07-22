@@ -175,10 +175,15 @@ input[type=number] {
 	background: #ffffffaa;
 }
 
-body, #background-register  {
-	background: url("../img/background_pages.jpg") no-repeat center;
+body, #background-register {
+	background: url("../img/background_pages.jpg") center;
 	background-size: 100% auto;
 	background-color: #fafafa;
+}
+
+html,
+body {
+    height: 100%;
 }
 
 .table {

@@ -75,7 +75,7 @@ class ProfileController extends Controller
             }
 
             return view('profiles.show', compact(['user', 'albums']));
-        } else{
+        } else {
             return view('profiles.not_exist', compact('username'));
         }
     }
@@ -111,7 +111,7 @@ class ProfileController extends Controller
         $request->validate([
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:12', Rule::unique('users')->ignore(Auth::user()->id)],
+            'username' => ['required', 'string', 'regex:/(^[A-Za-z0-9]+$)+/', 'max:20', Rule::unique('users')->ignore(Auth::user()->id)],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)]
         ]);
 
@@ -147,11 +147,11 @@ class ProfileController extends Controller
             $defaultAvatarValue = $this->getDefaultColumnValue('avatar', $user);
 
             // remove quotation marks returned by the getDefaultColumnValue function
-            $defaultAvatarValue = substr($defaultAvatarValue, 1);
-            $defaultAvatarValue = substr($defaultAvatarValue, 0, -1);
+            // $defaultAvatarValue = substr($defaultAvatarValue, 1);
+            // $defaultAvatarValue = substr($defaultAvatarValue, 0, -1);
 
             if ($user->avatar !== $defaultAvatarValue) {
-                if ($user->avatar != 'user.png' && Storage::exists('avatars/'.$user->avatar)) {
+                if (Storage::exists('avatars/'.$user->avatar)) {
                     Storage::delete('avatars/'.$user->avatar);
                 }
             }

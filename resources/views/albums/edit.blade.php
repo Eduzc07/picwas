@@ -76,7 +76,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <div class="col-12">
+                        <div class="col-12 text-center">
                             <img id="output" src="{{ asset('/storage/albums/'.$album->cover_photo) }}" alt="" class="img-fluid my-3" style="max-width:180px; min-width: 100px;">
                         </div>
                         <label for="album_cover" class="col-sm-4 col-form-label">Portada de álbum</label>

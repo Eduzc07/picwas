@@ -3,6 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- add card image link Whatsapp -->
+    <meta name="description" content="Encuentra tus fotos en PicWas!">
+    <meta property="og:title" content="PicWas" />
+    <meta property="og:url" content="https://picwas.com/" />
+    <meta property="og:description" content="Busca tus Fotos aqui!">
+    <!-- imagen 300 x 200  -->
+    <meta property="og:image" content="https://picwas.com/img/logo_color_white_dark_shadow.png">
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale:alternate" content="en_US" />
 
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/flag-icon.min.css') }}">

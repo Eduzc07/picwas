@@ -95,7 +95,7 @@ return [
     'numeric'              => 'El campo :attribute debe ser un número.',
     'password'             => 'La contraseña es incorrecta.',
     'present'              => 'El campo :attribute debe estar presente.',
-    'regex'                => 'El formato del campo :attribute es inválido.',
+    'regex'                => 'El formato del campo :attribute es inválido. Utilice solo letras y números, sin espacios en blanco.',
     'required'             => 'El campo :attribute es obligatorio.',
     'required_if'          => 'El campo :attribute es obligatorio cuando el campo :other es :value.',
     'required_unless'      => 'El campo :attribute es requerido a menos que :other se encuentre en :values.',
@@ -147,6 +147,7 @@ return [
     */
 
     'attributes' => [
+        'age_verification' => ' de certificación de la mayoria de edad y aprobación de las condiciones y términos del servicio',
         'email' => 'correo electrónico',
         'password' => 'contraseña',
         'firstname' => 'nombre',

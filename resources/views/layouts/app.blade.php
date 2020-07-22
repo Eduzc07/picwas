@@ -39,8 +39,8 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background-color: #28A745">
-            <div class="container">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm p-0" style="background-image: url({{ asset('img/background-image-customer-login.jpg') }});">
+            <div class="container-fluid py-3 pl-3" style="background-color: rgba(40, 167, 69, .50);">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{asset('img/logo_color_white_dark_shadow.png')}}" alt="{{ config('app.name', 'Laravel') }}" width="120" loading="lazy">
                 </a>

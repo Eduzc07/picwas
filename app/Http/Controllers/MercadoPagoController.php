@@ -17,7 +17,7 @@ class MercadoPagoController extends Controller
 
     public function success()
     {
-        return redirect()->route('cart')->with('success', '¡Se ha realizado tu compra! podrás ver las fotos compradas en la sección de Mis fotos.');
+        return redirect()->route('cart')->with('success', '¡Se ha realizado tu compra! Podrás ver las fotos compradas en la sección de Mis fotos.');
     }
 
     public function failure()
@@ -29,7 +29,7 @@ class MercadoPagoController extends Controller
     {
         /*Retornar estado 200 o 201*/
         header("HTTP/1.1 200 OK");
-        ob_flush();
+        #ob_flush();
         flush();
 
         SDK::setAccessToken(config('mercadopago.mp_access_token'));
@@ -64,8 +64,7 @@ class MercadoPagoController extends Controller
 
             if (!empty($cart) && $cart->user_id === $referenceData->user_id) {
                 $photosId = CartDetail::where('cart_id', $cart->id)->get('photo_id');
-
-                $photos = DB::table('photos')->whereIn('id', $photosId)->get(['user_id', 'original_image', 'modified_image']);
+                $photos = DB::table('photos')->whereIn('id', $photosId)->get(['id' ,'user_id', 'original_image', 'modified_image', 'price']);
 
                 foreach ($photos as $photo) {
                     $extensionModifiedImage = pathinfo($photo->modified_image, PATHINFO_EXTENSION);
@@ -88,7 +87,14 @@ class MercadoPagoController extends Controller
                     copy(storage_path('app/public/albums_photos/').$photo->modified_image, storage_path('app/public/purchased_photos_thumbnails/').$modifiedImageName);
                     copy(storage_path('app/private/photos/').$photo->original_image, storage_path('app/private/purchased_photos/').$originalImageName);
 
-                    DB::table('users')->where('id', $photo->user_id)->increment('balance', (config("app.price_per_photo") * config("app.percentage_for_the_photographer")));
+                    //Set balance per photo after discounts
+                    $photo_final_price = (($photo->price)*0.9) - 2; //6% Picwas + 1 + 4% MercadoPago + 1
+
+                    DB::table('users')->where('id', $photo->user_id)->increment('balance', $photo_final_price);
+                    // DB::table('users')->where('id', $photo->user_id)->increment('balance', (config("app.price_per_photo") * config("app.percentage_for_the_photographer")));
+
+                    //Delete photo from Album
+                    DB::table('albums_photos')->where('id', $photo->id)->delete();
                 }
 
                 DB::table('cart_details')->where('cart_id', $referenceData->cart_id)->delete();
