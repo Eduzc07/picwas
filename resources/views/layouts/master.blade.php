@@ -9,7 +9,7 @@
     <meta property="og:url" content="https://picwas.com/" />
     <meta property="og:description" content="Busca tus Fotos aqui!">
     <!-- imagen 300 x 200  -->
-    <meta property="og:image" content="https://picwas.com/img/logo_color_white_dark_shadow.png">
+    <meta property="og:image" content="https://picwas.com/img/icon_300x200.png">
     <meta property="og:type" content="article" />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:locale:alternate" content="en_US" />
